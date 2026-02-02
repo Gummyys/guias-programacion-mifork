@@ -19,6 +19,24 @@ Por favor, escribe en impersonal las respuestas.
 
 ### Respuesta
 
+## Las cuatro características básicas de la Programación Orientada a Objetos (POO)
+
+1.  **Encapsulamiento**
+    *   Consiste en **ocultar los detalles internos** de un objeto y exponer solo lo necesario.
+    *   Protege los datos y evita modificaciones indebidas, normalmente mediante **atributos privados** y **métodos públicos**.
+
+2.  **Abstracción**
+    *   Permite **simplificar la complejidad** mostrando solo las características esenciales de un objeto.
+    *   Se centra en *qué hace* un objeto, no en *cómo lo hace*.
+
+3.  **Herencia**
+    *   Permite que una clase (subclase) **herede atributos y métodos** de otra clase (superclase).
+    *   Facilita la reutilización de código y la creación de jerarquías lógicas.
+
+4.  **Polimorfismo**
+    *   Permite que **un mismo método** tenga **distintos comportamientos** según el objeto que lo utilice.
+    *   Se aplica mediante *sobrecarga* (mismo nombre, distintos parámetros) y *sobrescritura* (la subclase redefine el método de la superclase).
+
 
 ## 2. Cita cuatro lenguajes populares que permitan la programación orientada a objetos
 
