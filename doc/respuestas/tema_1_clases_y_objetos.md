@@ -17,9 +17,9 @@ Por favor, escribe en impersonal las respuestas.
 
 ## 1. ¿Cuáles son las cuatro características básicas de la programación orientada a objetos? Describe brevemente cada una
 
-### Respuesta
+### Respuesta:
 
-## Las cuatro características básicas de la Programación Orientada a Objetos (POO)
+### Las cuatro características básicas de la Programación Orientada a Objetos (POO)
 
 1.  **Encapsulamiento**
     *   Consiste en **ocultar los detalles internos** de un objeto y exponer solo lo necesario.
@@ -40,7 +40,21 @@ Por favor, escribe en impersonal las respuestas.
 
 ## 2. Cita cuatro lenguajes populares que permitan la programación orientada a objetos
 
-### Respuesta
+### Respuesta:
+
+**Cuatro lenguajes populares** que permiten la programación orientada a objetos:
+
+1.  **C++**  
+    Ampliamente usado en sistemas, videojuegos y aplicaciones de alto rendimiento. Soporta POO de forma completa.
+
+2.  **Java**  
+    Uno de los lenguajes más extendidos en empresas. Su diseño está fuertemente basado en la POO.
+
+3.  **Python**  
+    Aunque es multiparadigma, ofrece un modelo de objetos muy flexible y sencillo de usar.
+
+4.  **C#**  
+    Desarrollado por Microsoft, usado en aplicaciones de escritorio, web, móviles y videojuegos (Unity). Totalmente orientado a objetos.
 
 
 ## 3. Los paradigmas anteriores a la POO, ¿Qué es la **programación estructurada**? y, todavía mejor, ¿Qué es la **programación modular**?
