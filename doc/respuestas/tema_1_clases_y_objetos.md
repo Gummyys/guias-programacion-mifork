@@ -576,42 +576,940 @@ Esto sirve para valores constantes que deben ser accesibles desde cualquier part
 ***
 ***
 
-## 10. Intenta ejecutar un poco de Java de forma básica, con los comandos `javac` y `java`. ¿Cómo podemos compilar el programa y ejecutarlo desde linea de comandos? ¿Java es compilado? ¿Qué es la **máquina virtual**? ¿Qué es el *byte-code* y los ficheros `.class`?
+# 10. Compilar y ejecutar Java desde terminal
 
-### Respuesta:
+Vamos a usar un ejemplo muy simple:
 
+`Main.java`:
 
-## 11. En el código anterior de la clase `Punto` ¿Qué es `new`? ¿Qué es un **constructor**? Pon un ejemplo de constructor en una clase `Empleado` que tenga DNI, nombre y apellidos
+```java
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("Hola desde Java!");
+    }
+}
+```
 
-### Respuesta:
+***
 
+## ✔ ¿Cómo *compilar* un programa Java?
 
-## 12. ¿Qué es la referencia `this`? ¿Se llama igual en todos los lenguajes? Pon un ejemplo del uso de `this` en la clase `Punto`
+Para compilar un archivo `.java` usamos **`javac`**:
 
-### Respuesta:
+```bash
+javac Main.java
+```
 
+Si no hay errores, el compilador genera un archivo:
 
-## 13. Añade ahora otro nuevo método que se llame `distanciaA`, que reciba un `Punto` como parámetro y calcule la distancia entre `this` y el punto proporcionado
+    Main.class
 
-### Respuesta:
+Ese archivo contiene **bytecode**, no código máquina.
 
+***
 
-## 14. El paso del `Punto` como parámetro a un método, es **por copia** o **por referencia**, es decir, si se cambia el valor de algún atributo del punto pasado como parámetro, dichos cambios afectan al objeto fuera del método? ¿Qué ocurre si en vez de un `Punto`, se recibiese un entero (`int`) y dicho entero se modificase dentro de la función? 
+## ✔ ¿Cómo *ejecutar* un programa Java?
 
-### Respuesta:
+Para ejecutarlo usamos **`java`**:
 
+```bash
+java Main
+```
 
-## 15. ¿Qué es el método `toString()` en Java? ¿Existe en otros lenguajes? Pon un ejemplo de `toString()` en la clase `Punto` en Java
+Ojo:  
+➡️ **No se pone `.class`**  
+➡️ Solo el nombre de la clase que contiene `main`.
 
-### Respuesta:
+La salida será:
 
+    Hola desde Java!
 
-## 16. Reflexiona: ¿una clase es como un `struct` en C? ¿Qué le falta al `struct` para ser como una clase y las variables de ese tipo ser instancias?
+***
 
+# ¿Java es compilado?
 
-### Respuesta:
+## ✔ Java es **compilado** *y* **interpretado** (en realidad, ejecutado por la JVM).
 
+### Proceso:
 
-## 17. Quitemos un poco de magia a todo esto: ¿Como se podría “emular”, con `struct` en C, la clase `Punto`, con su función para calcular la distancia al origen? ¿Qué ha pasado con `this`?
+1.  El código fuente `.java`  
+    ⬇️ es **compilado por `javac`**
+2.  Se genera `.class` con **bytecode**  
+    ⬇️
+3.  Ese bytecode es **ejecutado por la JVM** (que lo interpreta y/o lo compila en caliente con JIT)
 
-### Respuesta:
+Por eso Java se considera:
+
+*   **Compilado** → hacia bytecode
+*   **Interpretado/ejecutado por máquina virtual** → la JVM
+
+***
+
+# ¿Qué es la **máquina virtual Java (JVM)**?
+
+La **JVM** es un programa que:
+
+*   Lee y ejecuta el bytecode
+*   Hace tu programa independiente del sistema operativo
+*   Gestiona memoria
+*   Controla el *garbage collector*
+*   Optimiza la ejecución (JIT compiler)
+
+El lema famoso de Java:  
+➡️ *“Write once, run anywhere”*  
+es posible gracias a la JVM.
+
+***
+
+# ¿Qué es el *bytecode*?
+
+El **bytecode** es un conjunto de instrucciones **intermedias**, no específicas de ningún procesador real.
+
+*   No es código máquina
+*   No lo entiende la CPU
+*   Sí lo entiende la JVM
+
+Es lo que aparece dentro de los ficheros `.class`.
+
+***
+
+# ¿Qué son los ficheros `.class`?
+
+Son archivos generados por `javac` que contienen **bytecode**.  
+Cada clase pública genera su propio archivo:
+
+Ejemplo:
+
+Si tu archivo `Main.java` contiene 2 clases:
+
+```java
+public class Main { ... }
+class Auxiliar { ... }
+```
+
+Al compilar obtienes:
+
+    Main.class
+    Auxiliar.class
+
+***
+
+# 🟦 Resumen claro
+
+| Tema                   | Explicación                                           |
+| ---------------------- | ----------------------------------------------------- |
+| **Compilar Java**      | `javac Nombre.java`                                   |
+| **Ejecutar Java**      | `java NombreDeLaClase`                                |
+| **Java es compilado?** | Sí → a bytecode; luego ejecutado por la JVM           |
+| **JVM**                | La máquina virtual que interpreta/ejecuta el bytecode |
+| **Bytecode**           | Representación intermedia generada por el compilador  |
+| **.class**             | Ficheros que contienen el bytecode                    |
+
+***
+***
+
+# 11. `new`, los constructores y un ejemplo en Java
+
+## ✔ ¿Qué es `new` en Java?
+
+`new` es un **operador** que sirve para **crear un objeto en memoria** a partir de una clase.
+
+Cuando escribes:
+
+```java
+Punto p = new Punto();
+```
+
+Estás haciendo **tres cosas**:
+
+1.  **Reservar memoria** en el *heap* para un objeto `Punto`.
+2.  **Ejecutar el constructor** de la clase `Punto`.
+3.  **Devolver una referencia** al objeto recién creado.
+
+***
+
+## ✔ ¿Qué es un *constructor*?
+
+Un **constructor** es un método especial que:
+
+*   Tiene **el mismo nombre que la clase**
+*   **No tiene tipo de retorno** (ni siquiera `void`)
+*   Se ejecuta automáticamente cuando haces `new`
+*   Sirve para **inicializar los atributos** del objeto
+
+Si no defines ninguno, Java crea uno por defecto vacío.  
+Pero normalmente definimos nuestros propios constructores.
+
+***
+
+# ✔ Ejemplo: Clase `Empleado` con un constructor
+
+Requisitos del enunciado:
+
+*   Clase `Empleado`
+*   Atributos: DNI, nombre, apellidos
+*   Un constructor que inicialice esos datos
+
+Aquí tienes el ejemplo en Java:
+
+```java
+class Empleado {
+    String dni;
+    String nombre;
+    String apellidos;
+
+    // Constructor
+    Empleado(String dni, String nombre, String apellidos) {
+        this.dni = dni;
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+    }
+}
+```
+
+***
+
+## ✔ Ejemplo de uso del constructor
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        Empleado e = new Empleado("12345678A", "Carlos", "Pérez Gómez");
+
+        System.out.println("DNI: " + e.dni);
+        System.out.println("Nombre: " + e.nombre);
+        System.out.println("Apellidos: " + e.apellidos);
+    }
+}
+```
+
+***
+
+## Resumen muy claro
+
+| Concepto                   | Explicación                                               |
+| -------------------------- | --------------------------------------------------------- |
+| **`new`**                  | Crea un objeto en memoria y llama al constructor          |
+| **Constructor**            | Método especial que inicializa los atributos de un objeto |
+| **Nombre del constructor** | Debe coincidir con el nombre de la clase                  |
+| **Tipo de retorno**        | Ninguno (ni siquiera `void`)                              |
+
+***
+***
+
+# 12. ¿Qué es la referencia `this`?
+
+En **Java**, `this` es una **referencia al objeto actual**, es decir, a **la instancia** sobre la que se está ejecutando el método o el constructor. Sirve para:
+
+1.  **Diferenciar** entre atributos del objeto y **parámetros con el mismo nombre**.
+2.  **Pasar la propia instancia** como argumento a otros métodos.
+3.  **Encadenar constructores** dentro de la misma clase: `this(...)`.
+4.  Acceder a **métodos** o **atributos** de la instancia de forma explícita (cuando hay ambigüedad o por claridad).
+
+> Importante: `this` **no puede usarse en contextos `static`**, porque en un método estático **no existe** una instancia.
+
+***
+
+## 12.1 ¿Se llama igual en todos los lenguajes?
+
+*   **Java, C++, C#, JavaScript** → usan `this`.
+*   **Python** → usa `self` (es un parámetro explícito en los métodos de instancia).
+*   **Kotlin** → usa `this` (y permite `this@NombreClase` para desambiguar en clases anidadas).
+*   **Ruby** → usa `self`.
+
+El concepto es equivalente (referirse al objeto actual), pero **el nombre y algunos detalles** de uso pueden variar según el lenguaje.
+
+***
+
+## Ejemplos en Java con la clase `Punto`
+
+Partimos de tu clase mínima y añadimos varios usos útiles de `this`:
+
+### 1) **Diferenciar atributos y parámetros en el constructor**
+
+```java
+class Punto {
+    int x; // visibilidad por defecto
+    int y; // visibilidad por defecto
+
+    // Constructor: los parámetros se llaman igual que los atributos
+    Punto(int x, int y) {
+        this.x = x; // 'this.x' → atributo; 'x' → parámetro
+        this.y = y;
+    }
+
+    double calculaDistanciaAOrigen() {
+        // 'this' es opcional aquí, pero puede usarse por claridad
+        return Math.sqrt(this.x * this.x + this.y * this.y);
+    }
+}
+```
+
+### 2) **Encadenar constructores con `this(...)`**
+
+```java
+class Punto {
+    int x;
+    int y;
+
+    Punto() {
+        // Llama al otro constructor de la misma clase
+        this(0, 0);
+    }
+
+    Punto(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+}
+```
+
+> Nota: la llamada a `this(...)` debe ser **la primera línea** del constructor.
+
+### 3) **Devolver `this` para permitir encadenamiento (fluent API)**
+
+```java
+class Punto {
+    int x;
+    int y;
+
+    Punto setX(int x) {
+        this.x = x;
+        return this; // devuelve la instancia actual
+    }
+
+    Punto setY(int y) {
+        this.y = y;
+        return this;
+    }
+
+    double calculaDistanciaAOrigen() {
+        return Math.sqrt(this.x * this.x + this.y * this.y);
+    }
+}
+
+class Main {
+    public static void main(String[] args) {
+        Punto p = new Punto().setX(3).setY(4);
+        System.out.println(p.calculaDistanciaAOrigen()); // 5.0
+    }
+}
+```
+
+### 4) **Pasar la instancia actual como argumento**
+
+```java
+class Utilidades {
+    static double distanciaEntre(Punto a, Punto b) {
+        int dx = a.x - b.x;
+        int dy = a.y - b.y;
+        return Math.sqrt(dx * dx + dy * dy);
+    }
+}
+
+class Punto {
+    int x;
+    int y;
+
+    Punto(int x, int y) { this.x = x; this.y = y; }
+
+    double distanciaA(Punto otro) {
+        // Pasamos la instancia actual como 'this'
+        return Utilidades.distanciaEntre(this, otro);
+    }
+}
+```
+
+***
+
+## Resumen rápido
+
+*   `this` → referencia a **la instancia actual**.
+*   Útil para: desambiguar atributos/parámetros, encadenar constructores, patrones de métodos encadenados, y pasar la propia instancia.
+*   **No** se puede usar en métodos `static`.
+*   El nombre cambia en algunos lenguajes (p. ej., `self` en Python), pero la **idea es la misma**.
+
+***
+***
+
+# ✔ 13. Clase `Punto` con el nuevo método `distanciaA`
+
+```java
+class Punto {
+    int x;  // visibilidad por defecto
+    int y;  // visibilidad por defecto
+
+    Punto(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    double calculaDistanciaAOrigen() {
+        return Math.sqrt(this.x * this.x + this.y * this.y);
+    }
+
+    // Nuevo método solicitado
+    double distanciaA(Punto otro) {
+        int dx = this.x - otro.x;
+        int dy = this.y - otro.y;
+        return Math.sqrt(dx * dx + dy * dy);
+    }
+}
+```
+
+***
+
+# ✔ Ejemplo de uso
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        Punto p1 = new Punto(3, 4);
+        Punto p2 = new Punto(0, 0);
+
+        double d = p1.distanciaA(p2);
+        System.out.println("Distancia entre p1 y p2: " + d);
+    }
+}
+```
+
+### Resultado esperado:
+
+    Distancia entre p1 y p2: 5.0
+
+***
+
+# ✔ Explicación breve
+
+*   `this.x` → coordenada del punto actual.
+*   `otro.x` → coordenada del punto pasado como parámetro.
+*   `dx` y `dy` son las diferencias en cada eje.
+*   La distancia euclidiana se calcula con:
+    $$
+    \sqrt{(x_1 - x_2)^2 + (y_1 - y_2)^2}
+    $$
+
+***
+***
+
+# 14. ¿El **paso de parámetros** en Java es **por copia o por referencia**?
+
+## ✔ **En Java TODO se pasa SIEMPRE por valor (por copia).**
+
+Pero cuidado:
+
+*   Cuando pasas un **tipo primitivo** → se copia el **valor**.
+*   Cuando pasas un **objeto** (como `Punto`) → se copia **la referencia** al objeto.
+
+Esto genera dos comportamientos distintos.
+
+***
+
+# ✔ Caso 1: Pasar un objeto `Punto`
+
+El método recibe **una copia de la referencia**, pero AMBAS referencias apuntan al **mismo objeto** del *heap*.
+
+Por eso:
+
+➡️ **Si modificas atributos del objeto dentro del método, los cambios afectan fuera.**
+
+Ejemplo:
+
+```java
+void mover(Punto p) {
+    p.x = 100;   // modifica el objeto real
+}
+```
+
+Uso:
+
+```java
+Punto p1 = new Punto(3, 4);
+mover(p1);
+System.out.println(p1.x); // 100 → CAMBIÓ
+```
+
+### ✔ ¿Por qué ocurre?
+
+Porque tanto `p1` como el parámetro `p` apuntan al **mismo objeto** en memoria.
+
+Lo que se copia es **la dirección**, no el objeto.
+
+***
+
+# ✔ Caso 2: Pasar un entero (`int`)
+
+Los tipos primitivos en Java (*int, double, boolean, char…*) se pasan **por copia del valor**.
+
+Eso significa que si modificas el parámetro dentro del método, NO afecta fuera.
+
+Ejemplo:
+
+```java
+void cambiarEntero(int n) {
+    n = 999;  // solo cambia la copia
+}
+```
+
+Uso:
+
+```java
+int a = 5;
+cambiarEntero(a);
+System.out.println(a); // 5 → NO CAMBIÓ
+```
+
+### ✔ ¿Por qué?
+
+Porque `a` y `n` son **copias independientes** del valor 5.
+
+***
+
+# ✔ ¿Entonces Java tiene “paso por referencia”?
+
+❌ **No.**
+
+Java **no** tiene paso por referencia auténtico (como C++ cuando pasas con `&`).
+
+Lo que tiene es:
+
+*   **Paso por valor de primitivos**, y
+*   **Paso por valor de referencias a objetos**.
+
+Ese matiz es MUY importante.
+
+***
+
+# 🟦 Resumen final
+
+| Tipo pasado a un método | ¿Qué se copia?                           | ¿Afectan las modificaciones fuera del método? |
+| ----------------------- | ---------------------------------------- | --------------------------------------------- |
+| **Objeto (Punto)**      | Se **copia la referencia**, no el objeto | ✔ Sí, los cambios afectan al objeto real      |
+| **Primitivo (int)**     | Se copia **el valor**                    | ❌ No afectan fuera del método                 |
+
+***
+***
+
+# 15. ¿Qué es el método `toString()` en Java?
+
+En Java, **`toString()`** es un método que tienen **todas las clases**, porque está definido en la clase base **`java.lang.Object`**, de la cual **heredan todas las clases**.
+
+## ✔ ¿Para qué sirve?
+
+`toString()` devuelve una **representación en forma de texto** del objeto.
+
+Su objetivo es:
+
+*   Mostrar la información del objeto de forma legible
+*   Facilitar depuración, logs y mensajes por consola
+*   Convertir un objeto a cadena automáticamente cuando se usa con `System.out.println()` o concatenaciones
+
+Ejemplo:
+
+```java
+System.out.println(miPunto);
+```
+
+Java internamente hace:
+
+```java
+miPunto.toString();
+```
+
+***
+
+# ✔ ¿Existe en otros lenguajes?
+
+Sí, pero con *nombres distintos*:
+
+*   **JavaScript** → `toString()` también
+*   **C#** → `ToString()` con mayúscula
+*   **Python** → usa `__str__()` para la cadena legible y `__repr__()` para representación oficial
+*   **C++** → no existe un “toString universal”; se suele sobrecargar `operator<<` o crear un método propio
+
+Es un concepto muy común: “obtener una cadena que describa al objeto”.
+
+***
+
+# ✔ Ejemplo de `toString()` en la clase `Punto`
+
+```java
+class Punto {
+    int x;  // visibilidad por defecto
+    int y;  // visibilidad por defecto
+
+    Punto(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    double calculaDistanciaAOrigen() {
+        return Math.sqrt(this.x * this.x + this.y * this.y);
+    }
+
+    double distanciaA(Punto otro) {
+        int dx = this.x - otro.x;
+        int dy = this.y - otro.y;
+        return Math.sqrt(dx * dx + dy * dy);
+    }
+
+    @Override
+    public String toString() {
+        return "Punto(" + x + ", " + y + ")";
+    }
+}
+```
+
+***
+
+# ✔ Ejemplo de uso
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        Punto p = new Punto(3, 4);
+        System.out.println(p);          // Llama automáticamente a p.toString()
+        System.out.println(p.toString()); // Equivalente
+    }
+}
+```
+
+Salida:
+
+    Punto(3, 4)
+    Punto(3, 4)
+
+***
+
+# 🟦 Resumen rápido
+
+| Concepto                    | Explicación                                                  |
+| --------------------------- | ------------------------------------------------------------ |
+| `toString()`                | Representación textual legible del objeto                    |
+| Dónde se define             | En `Object`, la superclase de todas                          |
+| Cuándo se llama             | En `System.out.println(objeto)` o al concatenar cadenas      |
+| ¿Existe en otros lenguajes? | Sí, pero con nombres distintos (`__str__`, `ToString`, etc.) |
+
+***
+***
+
+# 16. ¿Una clase es como un `struct` en C?
+
+## ✔ **Respuesta corta:**
+
+**NO**, un `struct` en C *no es* una clase…  
+Pero **sí se parece a la parte de “atributos” de una clase**.
+
+Un `struct` en C es simplemente un **contenedor de datos**.  
+No tiene **métodos**, ni **constructores**, ni **encapsulamiento**, ni **herencia**, ni **polimorfismo**, ni nada que forme parte de la Programación Orientada a Objetos.
+
+Ejemplo de `struct` en C:
+
+```c
+struct Punto {
+    int x;
+    int y;
+};
+```
+
+Esto solo define dos campos. No puede tener comportamiento asociado.
+
+***
+
+# ✔ ¿Qué le falta al `struct` para ser como una clase?
+
+Para que un `struct` en C fuese equivalente a una **clase** en Java, le faltarían **varias características esenciales**:
+
+***
+
+## ✔ 1. **Métodos dentro del propio tipo**
+
+Una clase tiene métodos:
+
+```java
+class Punto {
+    int x, y;
+
+    double distanciaAOrigen() { ... }
+}
+```
+
+Un `struct` en C **no puede** tener funciones dentro.  
+Solo se puede simular haciendo funciones externas que reciban un puntero al struct.
+
+***
+
+## ✔ 2. **Constructores**
+
+Las clases permiten inicializar automáticamente el objeto:
+
+```java
+Punto p = new Punto(3, 4);
+```
+
+En C no hay constructores. Hay que asignar “a mano”:
+
+```c
+struct Punto p = {3, 4};
+```
+
+***
+
+## ✔ 3. **Encapsulamiento**
+
+En Java puedes controlar el acceso:
+
+```java
+private int x;
+public int getX() { return x; }
+```
+
+En C, un `struct` **no puede tener visibilidad privada**.  
+Todo es público.
+
+***
+
+## ✔ 4. **Herencia**
+
+Una clase puede extender a otra:
+
+```java
+class Empleado extends Persona { }
+```
+
+En C, los `struct` **no pueden heredar** (solo puedes “simular” algo parecido copiando campos, pero no es herencia real).
+
+***
+
+## ✔ 5. **Polimorfismo**
+
+En Java puedes sobrescribir métodos y usar referencias polimórficas:
+
+```java
+Persona p = new Empleado();
+p.saludar(); // polimorfismo
+```
+
+En C, imposible con un struct (salvo con técnicas manuales complejas como “tablas de función”, pero no forman parte del lenguaje).
+
+***
+
+## ✔ 6. **`this` / referencia implícita al objeto**
+
+En una clase, los métodos tienen una referencia automática al objeto (`this`).
+
+En C, las funciones no saben a qué struct pertenecen.
+
+***
+
+## ✔ 7. **Instancias reales**
+
+En Java:
+
+```java
+Punto p = new Punto();
+```
+
+`p` es una instancia.
+
+En C:
+
+```c
+struct Punto p;
+```
+
+Esto **no es una instancia orientada a objetos**, es solo una región de memoria con datos.
+
+***
+
+# 🟦 Resumen final
+
+| Característica  | Struct en C  | Clase en Java    |
+| --------------- | ------------ | ---------------- |
+| Atributos       | ✔ Sí         | ✔ Sí             |
+| Métodos         | ❌ No         | ✔ Sí             |
+| Constructores   | ❌ No         | ✔ Sí             |
+| Encapsulamiento | ❌ No         | ✔ Sí             |
+| Herencia        | ❌ No         | ✔ Sí             |
+| Polimorfismo    | ❌ No         | ✔ Sí             |
+| `this`          | ❌ No         | ✔ Sí             |
+| Instancias      | ⚠ Solo datos | ✔ Objetos reales |
+
+***
+
+## ✔ Conclusión clara
+
+Un `struct` en C es equivalente **solo a la parte de datos** de una clase.  
+Para convertirse en una “clase real”, necesitaría:
+
+👉 **métodos**,  
+👉 **constructores**,  
+👉 **encapsulamiento**,  
+👉 **herencia**,  
+👉 **polimorfismo**,  
+👉 **comportamiento asociado**,  
+👉 **y una referencia implícita al objeto (`this`)**.
+
+Es decir, le falta casi *todo* lo que define la POO.
+
+***
+***
+
+# 17. ¿Cómo emular una clase `Punto` de Java usando `struct` en C?
+
+En C **no existen clases**, **ni métodos**, **ni this**, **ni constructores**.  
+Pero podemos **simular** la idea con:
+
+*   Un `struct` → para almacenar los datos
+*   Una función externa → para operar sobre estos datos
+*   Pasar un puntero al struct → para que la función sepa *qué objeto* estamos usando  
+    (esto es lo que sustituye a `this`)
+
+***
+
+# ✔ Versión en C que imita la clase `Punto`
+
+## 1) Definición del “objeto” usando `struct`:
+
+```c
+struct Punto {
+    int x;
+    int y;
+};
+```
+
+Esto solo contiene *datos*. No puede contener funciones.
+
+***
+
+## 2) “Constructor” simulado: una función que inicializa el struct
+
+```c
+void Punto_init(struct Punto* p, int x, int y) {
+    p->x = x;
+    p->y = y;
+}
+```
+
+📌 En Java escribirías:
+
+```java
+this.x = x;
+```
+
+Pero en C:
+
+```c
+p->x = x;
+```
+
+porque `p` es un puntero al struct.
+
+***
+
+## 3) Función que imita a `calculaDistanciaAOrigen()`
+
+```c
+#include <math.h>
+
+double Punto_calculaDistanciaAOrigen(struct Punto* p) {
+    return sqrt(p->x * p->x + p->y * p->y);
+}
+```
+
+Esta función sería un **método** en Java, pero en C está *fuera* del struct.
+
+***
+
+## 4) Ejemplo de uso
+
+```c
+#include <stdio.h>
+#include <math.h>
+
+struct Punto {
+    int x;
+    int y;
+};
+
+void Punto_init(struct Punto* p, int x, int y) {
+    p->x = x;
+    p->y = y;
+}
+
+double Punto_calculaDistanciaAOrigen(struct Punto* p) {
+    return sqrt(p->x * p->x + p->y * p->y);
+}
+
+int main() {
+    struct Punto p;
+    Punto_init(&p, 3, 4);
+
+    double d = Punto_calculaDistanciaAOrigen(&p);
+    printf("Distancia al origen: %.2f\n", d);
+    return 0;
+}
+```
+
+Salida:
+
+    Distancia al origen: 5.00
+
+***
+
+# ✔ ¿Qué ha pasado con `this`?
+
+### En Java:
+
+*   `this` es una **referencia implícita** al objeto actual.
+*   No tienes que pasarla como parámetro: está *automáticamente disponible*.
+
+Ejemplo en Java:
+
+```java
+double calculaDistanciaAOrigen() {
+    return Math.sqrt(this.x * this.x + this.y * this.y);
+}
+```
+
+### En C:
+
+*   No existe `this`.
+*   Si quieres saber *a qué struct* te refieres, **tienes que pasarlo como parámetro**.
+
+Ejemplo equivalente en C:
+
+```c
+double Punto_calculaDistanciaAOrigen(struct Punto* p) {
+    return sqrt(p->x * p->x + p->y * p->y);
+}
+```
+
+Aquí, **`p` es el `this` manual**.
+
+***
+
+# ✔ Resumen claro
+
+| Concepto    | Java (POO)                   | C (struct + funciones)        |
+| ----------- | ---------------------------- | ----------------------------- |
+| Datos       | atributos dentro de la clase | campos del struct             |
+| Métodos     | dentro de la clase           | funciones externas            |
+| this        | implícito                    | hay que pasarlo como puntero  |
+| Constructor | método especial              | función normal (`Punto_init`) |
+| Invocación  | `p.calculo()`                | `Punto_calculo(&p)`           |
+
+### Conclusión:
+
+👉 En C **tú mismo gestionas** lo que Java hace automáticamente:
+
+*   pasar `this`
+*   inicializar el objeto
+*   separar datos y funciones
+*   gestionar visibilidad
+*   evitar errores de punteros
+
+👉 Java aporta **abstracción, encapsulamiento, y organización**, mientras que C te da control total pero a mano.
+
+***
+***
