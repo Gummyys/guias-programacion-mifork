@@ -1,0 +1,1713 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>tema_1_clases_y_objetos.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<!--
+Posible prompt:
+<prompt>
+Tengo un cuestionario con preguntas sobre "Clases y Objetos". Debes tener en cuenta que los conocimientos previos que tengo (y por tanto tus respuestas deben ser adaptadas), son:
+- C/C++ sin orientación a objetos.
+- Temas de Java previos: ninguno.
+
+Cada respuesta debe tener entre 2 - 4 párrafos de longitud (sin contar los trozos de código).
+
+Por favor, escribe en impersonal las respuestas.
+
+</prompt>
+----
+-->
+<h1 id="tema-1-clases-y-objetos">TEMA 1. Clases y objetos</h1>
+<h1 id="1-las-cuatro-caracter%C3%ADsticas-b%C3%A1sicas-de-la-programaci%C3%B3n-orientada-a-objetos-poo">1. Las cuatro características básicas de la Programación Orientada a Objetos (POO)</h1>
+<ol>
+<li>
+<p><strong>Encapsulamiento</strong></p>
+<ul>
+<li>Consiste en <strong>ocultar los detalles internos</strong> de un objeto y exponer solo lo necesario.</li>
+<li>Protege los datos y evita modificaciones indebidas, normalmente mediante <strong>atributos privados</strong> y <strong>métodos públicos</strong>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Abstracción</strong></p>
+<ul>
+<li>Permite <strong>simplificar la complejidad</strong> mostrando solo las características esenciales de un objeto.</li>
+<li>Se centra en <em>qué hace</em> un objeto, no en <em>cómo lo hace</em>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Herencia</strong></p>
+<ul>
+<li>Permite que una clase (subclase) <strong>herede atributos y métodos</strong> de otra clase (superclase).</li>
+<li>Facilita la reutilización de código y la creación de jerarquías lógicas.</li>
+</ul>
+</li>
+<li>
+<p><strong>Polimorfismo</strong></p>
+<ul>
+<li>Permite que <strong>un mismo método</strong> tenga <strong>distintos comportamientos</strong> según el objeto que lo utilice.</li>
+<li>Se aplica mediante <em>sobrecarga</em> (mismo nombre, distintos parámetros) y <em>sobrescritura</em> (la subclase redefine el método de la superclase).</li>
+</ul>
+</li>
+</ol>
+<hr>
+<hr>
+<h1 id="2-lenguajes-populares-que-permitan-la-programaci%C3%B3n-orientada-a-objetos">2. Lenguajes populares que permitan la programación orientada a objetos</h1>
+<p><strong>Cuatro lenguajes populares</strong> que permiten la programación orientada a objetos:</p>
+<ol>
+<li>
+<p><strong>C++</strong><br>
+Ampliamente usado en sistemas, videojuegos y aplicaciones de alto rendimiento. Soporta POO de forma completa.</p>
+</li>
+<li>
+<p><strong>Java</strong><br>
+Uno de los lenguajes más extendidos en empresas. Su diseño está fuertemente basado en la POO.</p>
+</li>
+<li>
+<p><strong>Python</strong><br>
+Aunque es multiparadigma, ofrece un modelo de objetos muy flexible y sencillo de usar.</p>
+</li>
+<li>
+<p><strong>C#</strong><br>
+Desarrollado por Microsoft, usado en aplicaciones de escritorio, web, móviles y videojuegos (Unity). Totalmente orientado a objetos.</p>
+</li>
+</ol>
+<hr>
+<hr>
+<h1 id="3-paradigmas-anteriores-a-la-poo">3. Paradigmas anteriores a la POO</h1>
+<h2 id="%C2%BFqu%C3%A9-es-la-programaci%C3%B3n-estructurada">¿Qué es la <strong>programación estructurada</strong>?</h2>
+<p>La <strong>programación estructurada</strong> es un paradigma que surgió para mejorar el desorden y la complejidad del código “espagueti” típico de los primeros programas llenos de saltos <code>goto</code>.<br>
+Su idea principal es <strong>organizar el programa en estructuras de control bien definidas</strong>, sin saltos arbitrarios.</p>
+<p>Se basa en <strong>tres tipos básicos de estructuras</strong>:</p>
+<ol>
+<li><strong>Secuencia</strong>: instrucciones ejecutadas una detrás de otra.</li>
+<li><strong>Selección</strong>: decidir entre varias alternativas (por ejemplo, <code>if</code>, <code>switch</code>).</li>
+<li><strong>Iteración</strong>: repetir acciones (<code>for</code>, <code>while</code>).</li>
+</ol>
+<p>Con estas tres estructuras se puede escribir cualquier programa sin necesidad de usar <code>goto</code>, lo que hace el código:</p>
+<ul>
+<li>Más <strong>legible</strong></li>
+<li>Más <strong>fácil de depurar</strong></li>
+<li>Más <strong>mantenible</strong></li>
+</ul>
+<hr>
+<h2 id="%C2%BFqu%C3%A9-es-la-programaci%C3%B3n-modular">¿Qué es la <strong>programación modular</strong>?</h2>
+<p>La <strong>programación modular</strong> es una evolución natural de la programación estructurada.<br>
+Su objetivo es <strong>dividir un programa grande en partes más pequeñas llamadas módulos</strong>, cada una con una función muy concreta.</p>
+<p>Un <strong>módulo</strong> es un bloque de código que:</p>
+<ul>
+<li>Realiza una tarea específica</li>
+<li>Es independiente del resto lo máximo posible</li>
+<li>Tiene una <strong>interfaz bien definida</strong> (p. ej., funciones públicas)</li>
+<li>Oculta sus detalles internos (idea que luego heredará la POO como <em>encapsulamiento</em>)</li>
+</ul>
+<h3 id="ventajas-clave">Ventajas clave:</h3>
+<ul>
+<li>Facilita el <strong>mantenimiento</strong> de grandes programas</li>
+<li>Permite <strong>reutilizar</strong> módulos en otros proyectos</li>
+<li>Divide el trabajo entre varios programadores</li>
+<li>Reduce los errores al trabajar con piezas más pequeñas y controladas</li>
+</ul>
+<hr>
+<h2 id="relaci%C3%B3n-entre-ambas">Relación entre ambas</h2>
+<ul>
+<li>La <strong>programación estructurada</strong> organiza la lógica interna del código.</li>
+<li>La <strong>programación modular</strong> organiza el <strong>proyecto completo</strong> en bloques grandes y bien definidos.</li>
+</ul>
+<p>Juntas crearon la base conceptual de lo que luego evolucionó en la <strong>Programación Orientada a Objetos</strong>, donde los módulos ya no son simples funciones o archivos, sino <strong>objetos</strong>.</p>
+<hr>
+<hr>
+<h1 id="4-elementos-que-definen-a-un-objeto-en-programaci%C3%B3n-orientada-a-objetos">4. Elementos que definen a un objeto en programación orientada a objetos</h1>
+<p>En programación orientada a objetos, <strong>un objeto</strong> se define por <strong>tres elementos fundamentales</strong>:</p>
+<h2 id="1-atributos-o-propiedades">1. <strong>Atributos (o propiedades)</strong></h2>
+<p>Son los <strong>datos</strong> que describen el estado del objeto.<br>
+Representan <em>características</em> del objeto en la vida real.</p>
+<p>Ejemplo:<br>
+Un objeto <code>Coche</code> puede tener atributos como:</p>
+<ul>
+<li><code>color</code></li>
+<li><code>marca</code></li>
+<li><code>velocidad</code></li>
+</ul>
+<h2 id="2-m%C3%A9todos-o-comportamientos">2. <strong>Métodos (o comportamientos)</strong></h2>
+<p>Son las <strong>acciones</strong> que el objeto puede realizar o las operaciones que puede ejecutar.<br>
+Definen cómo interactúa el objeto con el exterior y consigo mismo.</p>
+<p>Ejemplo:<br>
+El objeto <code>Coche</code> puede tener métodos como:</p>
+<ul>
+<li><code>acelerar()</code></li>
+<li><code>frenar()</code></li>
+<li><code>tocarClaxon()</code></li>
+</ul>
+<h2 id="3-identidad">3. <strong>Identidad</strong></h2>
+<p>Es lo que <strong>distingue un objeto de otro</strong>, aunque tengan los mismos atributos.<br>
+Dos objetos pueden tener propiedades idénticas, pero siguen siendo instancias distintas.</p>
+<p>Ejemplo:<br>
+Dos coches rojos de la misma marca, modelo y velocidad siguen siendo <strong>dos coches diferentes</strong>, no el mismo objeto.</p>
+<hr>
+<hr>
+<h1 id="5-clase-objeto-e-instancia-diferencias-y-aclaraciones">5. <strong>Clase, objeto e instancia: diferencias y aclaraciones</strong></h1>
+<h2 id="%C2%BFqu%C3%A9-es-una-clase"><strong>¿Qué es una <em>clase</em>?</strong></h2>
+<p>Una <strong>clase</strong> es un <em>modelo</em> o <em>plantilla</em> que define qué atributos y métodos tendrán sus objetos.<br>
+Es una descripción general, <strong>no ocupa memoria</strong> hasta que se crean objetos.</p>
+<p>Ejemplo sencillo en C++:</p>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Coche</span> {</span>
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-built_in">string</span> color;
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">arrancar</span><span class="hljs-params">()</span> </span>{ <span class="hljs-comment">/* ... */</span> }
+};
+</div></code></pre>
+<p>La clase dice <em>qué es</em> un coche y <em>qué puede hacer</em>.</p>
+<hr>
+<h2 id="%C2%BFes-lo-mismo-una-clase-que-un-objeto"><strong>¿Es lo mismo una clase que un objeto?</strong></h2>
+<p><strong>No. Son cosas distintas:</strong></p>
+<ul>
+<li>La <strong>clase</strong> es el <em>concepto</em>, el plano, la definición.</li>
+<li>El <strong>objeto</strong> es el <em>resultado real</em> creado a partir de esa clase.</li>
+</ul>
+<p>Analogía:</p>
+<ul>
+<li>Clase = plano de una casa</li>
+<li>Objeto = casa construida a partir del plano</li>
+</ul>
+<p>En programación:</p>
+<pre class="hljs"><code><div>Coche miCoche;  <span class="hljs-comment">// ← Esto es un objeto</span>
+</div></code></pre>
+<hr>
+<h2 id="%C2%BFqu%C3%A9-es-una-instancia"><strong>¿Qué es una instancia?</strong></h2>
+<p>Una <strong>instancia</strong> es simplemente <strong>un objeto creado a partir de una clase</strong>.</p>
+<p>Así que:</p>
+<ul>
+<li>“Objeto” e “instancia” suelen referirse a <em>lo mismo</em>.</li>
+<li>Se dice que un objeto es <em>una instancia de la clase X</em>.</li>
+</ul>
+<p>Ejemplo:</p>
+<pre class="hljs"><code><div>Coche coche1;  <span class="hljs-comment">// coche1 es una instancia de Coche</span>
+Coche coche2;  <span class="hljs-comment">// coche2 es otra instancia distinta</span>
+</div></code></pre>
+<hr>
+<h2 id="%C2%BFtodos-los-lenguajes-orientados-a-objetos-manejan-el-concepto-de-clase"><strong>¿Todos los lenguajes orientados a objetos manejan el concepto de clase?</strong></h2>
+<p><strong>No.</strong><br>
+Muchos sí, pero <strong>no todos los lenguajes orientados a objetos usan clases</strong>.</p>
+<h3 id="%E2%9C%94-lenguajes-con-clases-cl%C3%A1sicos">✔ Lenguajes con clases (clásicos)</h3>
+<ul>
+<li>C++</li>
+<li>Java</li>
+<li>C#</li>
+<li>Python (sí tiene clases, aunque sea multiparadigma)</li>
+</ul>
+<h3 id="%E2%9C%94-lenguajes-orientados-a-objetos-sin-clases-basados-en-prototipos">✔ Lenguajes orientados a objetos <em>sin</em> clases (basados en prototipos)</h3>
+<ul>
+<li><strong>JavaScript</strong></li>
+<li><strong>Lua</strong></li>
+</ul>
+<p>Estos lenguajes están basados en <strong>objetos prototípicos</strong>, donde no hay clases formales:<br>
+los objetos se crean copiando otros objetos (los prototipos).</p>
+<p>JavaScript, por ejemplo, tiene hoy una sintaxis de “clase”, pero <em>por debajo</em> sigue funcionando con prototipos.</p>
+<hr>
+<h2 id="resumen-r%C3%A1pido">Resumen rápido</h2>
+<table>
+<thead>
+<tr>
+<th>Concepto</th>
+<th>Qué es</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Clase</strong></td>
+<td>Modelo o plantilla que define atributos y métodos.</td>
+</tr>
+<tr>
+<td><strong>Objeto</strong></td>
+<td>Entidad real creada a partir de una clase; tiene estado propio.</td>
+</tr>
+<tr>
+<td><strong>Instancia</strong></td>
+<td>Sinónimo práctico de objeto; objeto creado a partir de una clase.</td>
+</tr>
+<tr>
+<td><strong>¿Todos los lenguajes usan clases?</strong></td>
+<td>No. Algunos usan prototipos (JavaScript, Lua).</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<hr>
+<h1 id="61-%C2%BFd%C3%B3nde-se-almacenan-en-memoria-los-objetos">6.1. <strong>¿Dónde se almacenan en memoria los objetos?</strong></h1>
+<p>La respuesta depende del <strong>lenguaje de programación</strong>, pero en general:</p>
+<h2 id="%E2%9C%94-en-la-mayor%C3%ADa-de-lenguajes-orientados-a-objetos-como-java">✔ En la mayoría de lenguajes orientados a objetos (como <strong>Java</strong>):</h2>
+<p>Los <strong>objetos se almacenan en el <em>heap</em></strong>.</p>
+<h3 id="%F0%9F%A7%A0-%C2%BFpor-qu%C3%A9-en-el-heap">🧠 ¿Por qué en el <em>heap</em>?</h3>
+<ul>
+<li>El <em>heap</em> es la zona de memoria destinada a datos que <strong>pueden cambiar de tamaño</strong> y <strong>viven más tiempo</strong>.</li>
+<li>Los objetos se crean en tiempo de ejecución con <code>new</code>, así que necesitan esta flexibilidad.</li>
+</ul>
+<p>Ejemplo en Java:</p>
+<pre class="hljs"><code><div>Persona p = <span class="hljs-keyword">new</span> Persona(); <span class="hljs-comment">// el objeto Persona está en el heap</span>
+</div></code></pre>
+<p>La <strong>referencia</strong> <code>p</code> se guarda en la <strong>pila (stack)</strong>, pero<br>
+<strong>el objeto real está en el <em>heap</em></strong>.</p>
+<hr>
+<h1 id="%E2%9C%94-%C2%BFes-igual-en-todos-los-lenguajes">✔ ¿Es igual en todos los lenguajes?</h1>
+<h2 id="no-cambia-seg%C3%BAn-el-lenguaje"><strong>No. Cambia según el lenguaje.</strong></h2>
+<h3 id="%F0%9F%94%B9-java-c-python">🔹 <strong>Java, C#, Python</strong></h3>
+<p>→ <strong>Los objetos viven en el <em>heap</em></strong>.<br>
+La gestión de memoria se realiza automáticamente mediante <strong>recolección de basura</strong>.</p>
+<h3 id="%F0%9F%94%B9-c">🔹 <strong>C++</strong></h3>
+<p>En C++ los objetos pueden almacenarse en varios lugares:</p>
+<ul>
+<li>
+<p>En el <strong>stack</strong></p>
+<pre class="hljs"><code><div>Coche c;   <span class="hljs-comment">// objeto en stack</span>
+</div></code></pre>
+</li>
+<li>
+<p>En el <strong>heap</strong> (si usas <code>new</code>)</p>
+<pre class="hljs"><code><div>Coche* c = <span class="hljs-keyword">new</span> Coche();  <span class="hljs-comment">// objeto en heap</span>
+</div></code></pre>
+</li>
+<li>
+<p>Incluso en zonas especiales como <strong>memoria estática</strong>.</p>
+</li>
+</ul>
+<hr>
+<h1 id="62-%C2%BFqu%C3%A9-es-la-recolecci%C3%B3n-de-basura-garbage-collection">6.2. <strong>¿Qué es la recolección de basura (garbage collection)?</strong></h1>
+<p>La <strong>recolección de basura</strong> es un proceso automático que:</p>
+<h3 id="%E2%9C%94-libera-memoria-ocupada-por-objetos-que-ya-no-se-est%C3%A1n-usando">✔ Libera memoria ocupada por objetos que <strong>ya no se están usando</strong></h3>
+<p>Es decir, por objetos que <strong>no tienen referencias</strong> apuntando hacia ellos.</p>
+<h3 id="%E2%9C%94-%C2%BFqu%C3%A9-ventajas-tiene">✔ ¿Qué ventajas tiene?</h3>
+<ul>
+<li>Evita fugas de memoria (<em>memory leaks</em>)</li>
+<li>Facilita el trabajo del programador</li>
+<li>Hace el programa más seguro y estable</li>
+</ul>
+<h3 id="%E2%9C%94-%C2%BFqu%C3%A9-lenguajes-la-usan">✔ ¿Qué lenguajes la usan?</h3>
+<ul>
+<li>Java</li>
+<li>C#</li>
+<li>Python</li>
+<li>Kotlin</li>
+</ul>
+<h3 id="%E2%9C%94-%C2%BFqu%C3%A9-lenguajes-no-la-usan">✔ ¿Qué lenguajes <em>no la usan</em>?</h3>
+<ul>
+<li><strong>C y C++</strong> → El programador debe liberar la memoria manualmente con <code>delete</code> o <code>free</code>.</li>
+</ul>
+<hr>
+<h1 id="%F0%9F%9F%A6-resumen-claro">🟦 Resumen claro</h1>
+<table>
+<thead>
+<tr>
+<th>Concepto</th>
+<th>Explicación</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Dónde están los objetos (Java)</strong></td>
+<td>En el <em>heap</em></td>
+</tr>
+<tr>
+<td><strong>Dónde está la referencia</strong></td>
+<td>En el <em>stack</em></td>
+</tr>
+<tr>
+<td><strong>¿Es igual en todos los lenguajes?</strong></td>
+<td>No; depende del lenguaje</td>
+</tr>
+<tr>
+<td><strong>Recolección de basura</strong></td>
+<td>Sistema automático que libera memoria de objetos sin usar</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<hr>
+<h1 id="71-%C2%BFqu%C3%A9-es-un-m%C3%A9todo">7.1. <strong>¿Qué es un método?</strong></h1>
+<p>Un <strong>método</strong> es una función que pertenece a una <strong>clase</strong> y define una <strong>acción</strong> o <strong>comportamiento</strong> que los objetos de esa clase pueden realizar.</p>
+<p>En otras palabras:<br>
+➡️ <strong>Un método es lo que un objeto <em>puede hacer</em>.</strong></p>
+<h3 id="ejemplo-en-java">Ejemplo en Java:</h3>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Coche</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">arrancar</span><span class="hljs-params">()</span> </span>{
+        System.out.println(<span class="hljs-string">"El coche está arrancando..."</span>);
+    }
+}
+</div></code></pre>
+<p><code>arrancar()</code> es un <strong>método</strong> de la clase <code>Coche</code>.</p>
+<hr>
+<h1 id="72-%C2%BFqu%C3%A9-es-la-sobrecarga-de-m%C3%A9todos">7.2. <strong>¿Qué es la <em>sobrecarga de métodos</em>?</strong></h1>
+<p>La <strong>sobrecarga de métodos (method overloading)</strong> ocurre cuando <strong>varios métodos tienen el mismo nombre</strong>, pero <strong>diferentes parámetros</strong>.</p>
+<p>Los métodos sobrecargados se diferencian por:</p>
+<ul>
+<li>número de parámetros</li>
+<li>tipo de parámetros</li>
+<li>orden de parámetros</li>
+</ul>
+<p>👉 <strong>No se diferencian por el tipo de retorno.</strong></p>
+<h3 id="ejemplo-en-java-de-sobrecarga">Ejemplo en Java de sobrecarga:</h3>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Calculadora</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">sumar</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a, <span class="hljs-keyword">int</span> b)</span> </span>{
+        <span class="hljs-keyword">return</span> a + b;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">sumar</span><span class="hljs-params">(<span class="hljs-keyword">double</span> a, <span class="hljs-keyword">double</span> b)</span> </span>{
+        <span class="hljs-keyword">return</span> a + b;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">sumar</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a, <span class="hljs-keyword">int</span> b, <span class="hljs-keyword">int</span> c)</span> </span>{
+        <span class="hljs-keyword">return</span> a + b + c;
+    }
+}
+</div></code></pre>
+<p>Aquí tenemos <strong>tres métodos llamados <code>sumar</code></strong>, pero cada uno funciona con parámetros distintos.<br>
+Esto es <strong>sobrecarga</strong>.</p>
+<hr>
+<h2 id="resumen-r%C3%A1pido">Resumen rápido</h2>
+<table>
+<thead>
+<tr>
+<th>Concepto</th>
+<th>Explicación</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Método</strong></td>
+<td>Acción o comportamiento de un objeto.</td>
+</tr>
+<tr>
+<td><strong>Sobrecarga de métodos</strong></td>
+<td>Varios métodos con el mismo nombre pero distinta lista de parámetros.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<hr>
+<h2 id="8-ejemplo-m%C3%ADnimo-de-clase-en-java-que-se-llame-punto-con-dos-atributos-x-e-y-con-un-m%C3%A9todo-que-se-llame-calculadistanciaaorigen-que-calcule-la-distancia-a-la-posici%C3%B3n-00-por-sencillez-los-atributos-deben-tener-visibilidad-por-defecto-crea-adem%C3%A1s-un-ejemplo-de-uso-con-una-instancia-y-uso-del-m%C3%A9todo">8. Ejemplo mínimo de clase en Java, que se llame Punto, con dos atributos, x e y, con un método que se llame <code>calculaDistanciaAOrigen</code>, que calcule la distancia a la posición 0,0. Por sencillez, los atributos deben tener visibilidad por defecto. Crea además un ejemplo de uso con una instancia y uso del método</h2>
+<h1 id="clase-punto-y-ejemplo-de-uso">Clase <code>Punto</code> y ejemplo de uso</h1>
+<h3 id="%E2%9C%94-requisitos-cumplidos">✔ Requisitos cumplidos:</h3>
+<ul>
+<li>Nombre de la clase: <strong>Punto</strong></li>
+<li>Dos atributos: <strong>x</strong> e <strong>y</strong></li>
+<li>Visibilidad <strong>por defecto</strong> (es decir, <em>package-private</em>)</li>
+<li>Método <code>calculaDistanciaAOrigen()</code></li>
+<li>Ejemplo de creación de un objeto y llamada al método</li>
+</ul>
+<hr>
+<h2 id="%F0%9F%93%8C-c%C3%B3digo-de-la-clase-punto">📌 Código de la clase <code>Punto</code></h2>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Punto</span> </span>{
+    <span class="hljs-keyword">int</span> x;  <span class="hljs-comment">// visibilidad por defecto</span>
+    <span class="hljs-keyword">int</span> y;  <span class="hljs-comment">// visibilidad por defecto</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">calculaDistanciaAOrigen</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> Math.sqrt(x * x + y * y);
+    }
+}
+</div></code></pre>
+<hr>
+<h2 id="%F0%9F%93%8C-ejemplo-de-uso">📌 Ejemplo de uso</h2>
+<pre class="hljs"><code><div><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Main</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>{
+        Punto p = <span class="hljs-keyword">new</span> Punto();
+        
+        p.x = <span class="hljs-number">3</span>;
+        p.y = <span class="hljs-number">4</span>;
+
+        <span class="hljs-keyword">double</span> distancia = p.calculaDistanciaAOrigen();
+        System.out.println(<span class="hljs-string">"Distancia al origen: "</span> + distancia);
+    }
+}
+</div></code></pre>
+<hr>
+<h3 id="%E2%9C%94-%C2%BFqu%C3%A9-imprimir%C3%A1">✔ ¿Qué imprimirá?</h3>
+<p>Como <code>(3,4)</code> forma el típico triángulo pitagórico:</p>
+<pre><code>Distancia al origen: 5.0
+</code></pre>
+<hr>
+<hr>
+<h1 id="9-punto-de-entrada-static-y-final-en-java">9. Punto de entrada, <code>static</code> y <code>final</code> en Java</h1>
+<h2 id="%E2%9C%94-%C2%BFcu%C3%A1l-es-el-punto-de-entrada-de-un-programa-en-java">✔ ¿Cuál es el <strong>punto de entrada</strong> de un programa en Java?</h2>
+<p>En Java, <strong>todo programa comienza ejecutando el método <code>main</code></strong> con esta firma exacta:</p>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span>
+</span></div></code></pre>
+<p>Este método es el punto de entrada porque la <strong>JVM</strong> lo busca explícitamente al iniciar el programa.</p>
+<hr>
+<h2 id="%E2%9C%94-%C2%BFqu%C3%A9-es-static">✔ ¿Qué es <code>static</code>?</h2>
+<p>La palabra clave <strong><code>static</code></strong> significa que un atributo o método <strong>pertenece a la clase</strong>, no a las instancias (objetos).</p>
+<p>En otras palabras:<br>
+➡️ Algo <code>static</code> existe incluso <strong>sin crear objetos</strong>.</p>
+<p>Ejemplo:</p>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Contador</span> </span>{
+    <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> total = <span class="hljs-number">0</span>;  <span class="hljs-comment">// pertenece a la clase, no a objetos</span>
+}
+</div></code></pre>
+<p>Puedes acceder así:</p>
+<pre class="hljs"><code><div>System.out.println(Contador.total);
+</div></code></pre>
+<hr>
+<h2 id="%E2%9C%94-%C2%BFpara-qu%C3%A9-se-usa-static-en-el-m%C3%A9todo-main">✔ ¿Para qué se usa <code>static</code> en el método <code>main</code>?</h2>
+<p>El método <code>main</code> debe ser <code>static</code> porque:</p>
+<ul>
+<li>La JVM necesita ejecutarlo <strong>sin crear ningún objeto previamente</strong></li>
+<li>Si fuese no estático, tendrías que instanciar una clase antes de poder llamar a <code>main</code>, lo cual es imposible sin que ya exista un punto de entrada</li>
+</ul>
+<p>Por eso:</p>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span>
+</span></div></code></pre>
+<p>es obligatorio tal cual.</p>
+<hr>
+<h2 id="%E2%9C%94-%C2%BFs%C3%B3lo-se-usa-static-para-el-main">✔ ¿Sólo se usa <code>static</code> para el <code>main</code>?</h2>
+<p>No. <code>static</code> se usa para otras cosas, por ejemplo:</p>
+<h3 id="1%EF%B8%8F%E2%83%A3-atributos-de-clase-variables-est%C3%A1ticas">1️⃣ <strong>Atributos de clase (variables estáticas)</strong></h3>
+<p>Compartidos por <strong>todas</strong> las instancias.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> contadorObjetos;
+</div></code></pre>
+<h3 id="2%EF%B8%8F%E2%83%A3-m%C3%A9todos-de-clase">2️⃣ <strong>Métodos de clase</strong></h3>
+<p>Métodos que se pueden llamar sin crear objetos.</p>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">mostrarMensaje</span><span class="hljs-params">()</span> </span>{
+    System.out.println(<span class="hljs-string">"Hola"</span>);
+}
+</div></code></pre>
+<h3 id="3%EF%B8%8F%E2%83%A3-bloques-est%C3%A1ticos">3️⃣ <strong>Bloques estáticos</strong></h3>
+<p>Se ejecutan una vez cuando se carga la clase.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">static</span> {
+    System.out.println(<span class="hljs-string">"Cargando clase..."</span>);
+}
+</div></code></pre>
+<h3 id="4%EF%B8%8F%E2%83%A3-clases-internas-est%C3%A1ticas">4️⃣ <strong>Clases internas estáticas</strong></h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">static</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Nodo</span> </span>{ }
+</div></code></pre>
+<hr>
+<h2 id="%E2%9C%94-%C2%BFpara-qu%C3%A9-se-combina-static-con-final">✔ ¿Para qué se combina <code>static</code> con <code>final</code>?</h2>
+<p>La combinación <strong><code>static final</code></strong> se usa para crear <strong>constantes</strong>, es decir:</p>
+<ul>
+<li>Son de la clase (no de los objetos)</li>
+<li>No pueden cambiarse una vez asignadas</li>
+</ul>
+<p>Ejemplo típico:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">double</span> PI = <span class="hljs-number">3.14159</span>;
+</div></code></pre>
+<p>Esto sirve para valores constantes que deben ser accesibles desde cualquier parte del programa, y que no deben modificarse.</p>
+<hr>
+<h1 id="%F0%9F%9F%A6-resumen-claro">🟦 Resumen claro</h1>
+<table>
+<thead>
+<tr>
+<th>Concepto</th>
+<th>Explicación</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Punto de entrada de Java</strong></td>
+<td><code>public static void main(String[] args)</code></td>
+</tr>
+<tr>
+<td><strong>static</strong></td>
+<td>Pertenecen a la clase, no a los objetos</td>
+</tr>
+<tr>
+<td><strong>¿Solo para <code>main</code>?</strong></td>
+<td>No, también para atributos, métodos y bloques de clase</td>
+</tr>
+<tr>
+<td><strong>static + final</strong></td>
+<td>Constantes de clase (no cambian jamás)</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<hr>
+<h1 id="10-compilar-y-ejecutar-java-desde-terminal">10. Compilar y ejecutar Java desde terminal</h1>
+<p>Vamos a usar un ejemplo muy simple:</p>
+<p><code>Main.java</code>:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Main</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>{
+        System.out.println(<span class="hljs-string">"Hola desde Java!"</span>);
+    }
+}
+</div></code></pre>
+<hr>
+<h2 id="%E2%9C%94-%C2%BFc%C3%B3mo-compilar-un-programa-java">✔ ¿Cómo <em>compilar</em> un programa Java?</h2>
+<p>Para compilar un archivo <code>.java</code> usamos <strong><code>javac</code></strong>:</p>
+<pre class="hljs"><code><div>javac Main.java
+</div></code></pre>
+<p>Si no hay errores, el compilador genera un archivo:</p>
+<pre><code>Main.class
+</code></pre>
+<p>Ese archivo contiene <strong>bytecode</strong>, no código máquina.</p>
+<hr>
+<h2 id="%E2%9C%94-%C2%BFc%C3%B3mo-ejecutar-un-programa-java">✔ ¿Cómo <em>ejecutar</em> un programa Java?</h2>
+<p>Para ejecutarlo usamos <strong><code>java</code></strong>:</p>
+<pre class="hljs"><code><div>java Main
+</div></code></pre>
+<p>Ojo:<br>
+➡️ <strong>No se pone <code>.class</code></strong><br>
+➡️ Solo el nombre de la clase que contiene <code>main</code>.</p>
+<p>La salida será:</p>
+<pre><code>Hola desde Java!
+</code></pre>
+<hr>
+<h1 id="%C2%BFjava-es-compilado">¿Java es compilado?</h1>
+<h2 id="%E2%9C%94-java-es-compilado-y-interpretado-en-realidad-ejecutado-por-la-jvm">✔ Java es <strong>compilado</strong> <em>y</em> <strong>interpretado</strong> (en realidad, ejecutado por la JVM).</h2>
+<h3 id="proceso">Proceso:</h3>
+<ol>
+<li>El código fuente <code>.java</code><br>
+⬇️ es <strong>compilado por <code>javac</code></strong></li>
+<li>Se genera <code>.class</code> con <strong>bytecode</strong><br>
+⬇️</li>
+<li>Ese bytecode es <strong>ejecutado por la JVM</strong> (que lo interpreta y/o lo compila en caliente con JIT)</li>
+</ol>
+<p>Por eso Java se considera:</p>
+<ul>
+<li><strong>Compilado</strong> → hacia bytecode</li>
+<li><strong>Interpretado/ejecutado por máquina virtual</strong> → la JVM</li>
+</ul>
+<hr>
+<h1 id="%C2%BFqu%C3%A9-es-la-m%C3%A1quina-virtual-java-jvm">¿Qué es la <strong>máquina virtual Java (JVM)</strong>?</h1>
+<p>La <strong>JVM</strong> es un programa que:</p>
+<ul>
+<li>Lee y ejecuta el bytecode</li>
+<li>Hace tu programa independiente del sistema operativo</li>
+<li>Gestiona memoria</li>
+<li>Controla el <em>garbage collector</em></li>
+<li>Optimiza la ejecución (JIT compiler)</li>
+</ul>
+<p>El lema famoso de Java:<br>
+➡️ <em>“Write once, run anywhere”</em><br>
+es posible gracias a la JVM.</p>
+<hr>
+<h1 id="%C2%BFqu%C3%A9-es-el-bytecode">¿Qué es el <em>bytecode</em>?</h1>
+<p>El <strong>bytecode</strong> es un conjunto de instrucciones <strong>intermedias</strong>, no específicas de ningún procesador real.</p>
+<ul>
+<li>No es código máquina</li>
+<li>No lo entiende la CPU</li>
+<li>Sí lo entiende la JVM</li>
+</ul>
+<p>Es lo que aparece dentro de los ficheros <code>.class</code>.</p>
+<hr>
+<h1 id="%C2%BFqu%C3%A9-son-los-ficheros-class">¿Qué son los ficheros <code>.class</code>?</h1>
+<p>Son archivos generados por <code>javac</code> que contienen <strong>bytecode</strong>.<br>
+Cada clase pública genera su propio archivo:</p>
+<p>Ejemplo:</p>
+<p>Si tu archivo <code>Main.java</code> contiene 2 clases:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Main</span> </span>{ ... }
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Auxiliar</span> </span>{ ... }
+</div></code></pre>
+<p>Al compilar obtienes:</p>
+<pre><code>Main.class
+Auxiliar.class
+</code></pre>
+<hr>
+<h1 id="%F0%9F%9F%A6-resumen-claro">🟦 Resumen claro</h1>
+<table>
+<thead>
+<tr>
+<th>Tema</th>
+<th>Explicación</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Compilar Java</strong></td>
+<td><code>javac Nombre.java</code></td>
+</tr>
+<tr>
+<td><strong>Ejecutar Java</strong></td>
+<td><code>java NombreDeLaClase</code></td>
+</tr>
+<tr>
+<td><strong>Java es compilado?</strong></td>
+<td>Sí → a bytecode; luego ejecutado por la JVM</td>
+</tr>
+<tr>
+<td><strong>JVM</strong></td>
+<td>La máquina virtual que interpreta/ejecuta el bytecode</td>
+</tr>
+<tr>
+<td><strong>Bytecode</strong></td>
+<td>Representación intermedia generada por el compilador</td>
+</tr>
+<tr>
+<td><strong>.class</strong></td>
+<td>Ficheros que contienen el bytecode</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<hr>
+<h1 id="11-new-los-constructores-y-un-ejemplo-en-java">11. <code>new</code>, los constructores y un ejemplo en Java</h1>
+<h2 id="%E2%9C%94-%C2%BFqu%C3%A9-es-new-en-java">✔ ¿Qué es <code>new</code> en Java?</h2>
+<p><code>new</code> es un <strong>operador</strong> que sirve para <strong>crear un objeto en memoria</strong> a partir de una clase.</p>
+<p>Cuando escribes:</p>
+<pre class="hljs"><code><div>Punto p = <span class="hljs-keyword">new</span> Punto();
+</div></code></pre>
+<p>Estás haciendo <strong>tres cosas</strong>:</p>
+<ol>
+<li><strong>Reservar memoria</strong> en el <em>heap</em> para un objeto <code>Punto</code>.</li>
+<li><strong>Ejecutar el constructor</strong> de la clase <code>Punto</code>.</li>
+<li><strong>Devolver una referencia</strong> al objeto recién creado.</li>
+</ol>
+<hr>
+<h2 id="%E2%9C%94-%C2%BFqu%C3%A9-es-un-constructor">✔ ¿Qué es un <em>constructor</em>?</h2>
+<p>Un <strong>constructor</strong> es un método especial que:</p>
+<ul>
+<li>Tiene <strong>el mismo nombre que la clase</strong></li>
+<li><strong>No tiene tipo de retorno</strong> (ni siquiera <code>void</code>)</li>
+<li>Se ejecuta automáticamente cuando haces <code>new</code></li>
+<li>Sirve para <strong>inicializar los atributos</strong> del objeto</li>
+</ul>
+<p>Si no defines ninguno, Java crea uno por defecto vacío.<br>
+Pero normalmente definimos nuestros propios constructores.</p>
+<hr>
+<h1 id="%E2%9C%94-ejemplo-clase-empleado-con-un-constructor">✔ Ejemplo: Clase <code>Empleado</code> con un constructor</h1>
+<p>Requisitos del enunciado:</p>
+<ul>
+<li>Clase <code>Empleado</code></li>
+<li>Atributos: DNI, nombre, apellidos</li>
+<li>Un constructor que inicialice esos datos</li>
+</ul>
+<p>Aquí tienes el ejemplo en Java:</p>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Empleado</span> </span>{
+    String dni;
+    String nombre;
+    String apellidos;
+
+    <span class="hljs-comment">// Constructor</span>
+    Empleado(String dni, String nombre, String apellidos) {
+        <span class="hljs-keyword">this</span>.dni = dni;
+        <span class="hljs-keyword">this</span>.nombre = nombre;
+        <span class="hljs-keyword">this</span>.apellidos = apellidos;
+    }
+}
+</div></code></pre>
+<hr>
+<h2 id="%E2%9C%94-ejemplo-de-uso-del-constructor">✔ Ejemplo de uso del constructor</h2>
+<pre class="hljs"><code><div><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Main</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>{
+        Empleado e = <span class="hljs-keyword">new</span> Empleado(<span class="hljs-string">"12345678A"</span>, <span class="hljs-string">"Carlos"</span>, <span class="hljs-string">"Pérez Gómez"</span>);
+
+        System.out.println(<span class="hljs-string">"DNI: "</span> + e.dni);
+        System.out.println(<span class="hljs-string">"Nombre: "</span> + e.nombre);
+        System.out.println(<span class="hljs-string">"Apellidos: "</span> + e.apellidos);
+    }
+}
+</div></code></pre>
+<hr>
+<h2 id="resumen-muy-claro">Resumen muy claro</h2>
+<table>
+<thead>
+<tr>
+<th>Concepto</th>
+<th>Explicación</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>new</code></strong></td>
+<td>Crea un objeto en memoria y llama al constructor</td>
+</tr>
+<tr>
+<td><strong>Constructor</strong></td>
+<td>Método especial que inicializa los atributos de un objeto</td>
+</tr>
+<tr>
+<td><strong>Nombre del constructor</strong></td>
+<td>Debe coincidir con el nombre de la clase</td>
+</tr>
+<tr>
+<td><strong>Tipo de retorno</strong></td>
+<td>Ninguno (ni siquiera <code>void</code>)</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<hr>
+<h1 id="12-%C2%BFqu%C3%A9-es-la-referencia-this">12. ¿Qué es la referencia <code>this</code>?</h1>
+<p>En <strong>Java</strong>, <code>this</code> es una <strong>referencia al objeto actual</strong>, es decir, a <strong>la instancia</strong> sobre la que se está ejecutando el método o el constructor. Sirve para:</p>
+<ol>
+<li><strong>Diferenciar</strong> entre atributos del objeto y <strong>parámetros con el mismo nombre</strong>.</li>
+<li><strong>Pasar la propia instancia</strong> como argumento a otros métodos.</li>
+<li><strong>Encadenar constructores</strong> dentro de la misma clase: <code>this(...)</code>.</li>
+<li>Acceder a <strong>métodos</strong> o <strong>atributos</strong> de la instancia de forma explícita (cuando hay ambigüedad o por claridad).</li>
+</ol>
+<blockquote>
+<p>Importante: <code>this</code> <strong>no puede usarse en contextos <code>static</code></strong>, porque en un método estático <strong>no existe</strong> una instancia.</p>
+</blockquote>
+<hr>
+<h2 id="121-%C2%BFse-llama-igual-en-todos-los-lenguajes">12.1 ¿Se llama igual en todos los lenguajes?</h2>
+<ul>
+<li><strong>Java, C++, C#, JavaScript</strong> → usan <code>this</code>.</li>
+<li><strong>Python</strong> → usa <code>self</code> (es un parámetro explícito en los métodos de instancia).</li>
+<li><strong>Kotlin</strong> → usa <code>this</code> (y permite <code>this@NombreClase</code> para desambiguar en clases anidadas).</li>
+<li><strong>Ruby</strong> → usa <code>self</code>.</li>
+</ul>
+<p>El concepto es equivalente (referirse al objeto actual), pero <strong>el nombre y algunos detalles</strong> de uso pueden variar según el lenguaje.</p>
+<hr>
+<h2 id="ejemplos-en-java-con-la-clase-punto">Ejemplos en Java con la clase <code>Punto</code></h2>
+<p>Partimos de tu clase mínima y añadimos varios usos útiles de <code>this</code>:</p>
+<h3 id="1-diferenciar-atributos-y-par%C3%A1metros-en-el-constructor">1) <strong>Diferenciar atributos y parámetros en el constructor</strong></h3>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Punto</span> </span>{
+    <span class="hljs-keyword">int</span> x; <span class="hljs-comment">// visibilidad por defecto</span>
+    <span class="hljs-keyword">int</span> y; <span class="hljs-comment">// visibilidad por defecto</span>
+
+    <span class="hljs-comment">// Constructor: los parámetros se llaman igual que los atributos</span>
+    Punto(<span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y) {
+        <span class="hljs-keyword">this</span>.x = x; <span class="hljs-comment">// 'this.x' → atributo; 'x' → parámetro</span>
+        <span class="hljs-keyword">this</span>.y = y;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">calculaDistanciaAOrigen</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-comment">// 'this' es opcional aquí, pero puede usarse por claridad</span>
+        <span class="hljs-keyword">return</span> Math.sqrt(<span class="hljs-keyword">this</span>.x * <span class="hljs-keyword">this</span>.x + <span class="hljs-keyword">this</span>.y * <span class="hljs-keyword">this</span>.y);
+    }
+}
+</div></code></pre>
+<h3 id="2-encadenar-constructores-con-this">2) <strong>Encadenar constructores con <code>this(...)</code></strong></h3>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Punto</span> </span>{
+    <span class="hljs-keyword">int</span> x;
+    <span class="hljs-keyword">int</span> y;
+
+    Punto() {
+        <span class="hljs-comment">// Llama al otro constructor de la misma clase</span>
+        <span class="hljs-keyword">this</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>);
+    }
+
+    Punto(<span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y) {
+        <span class="hljs-keyword">this</span>.x = x;
+        <span class="hljs-keyword">this</span>.y = y;
+    }
+}
+</div></code></pre>
+<blockquote>
+<p>Nota: la llamada a <code>this(...)</code> debe ser <strong>la primera línea</strong> del constructor.</p>
+</blockquote>
+<h3 id="3-devolver-this-para-permitir-encadenamiento-fluent-api">3) <strong>Devolver <code>this</code> para permitir encadenamiento (fluent API)</strong></h3>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Punto</span> </span>{
+    <span class="hljs-keyword">int</span> x;
+    <span class="hljs-keyword">int</span> y;
+
+    <span class="hljs-function">Punto <span class="hljs-title">setX</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span> </span>{
+        <span class="hljs-keyword">this</span>.x = x;
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>; <span class="hljs-comment">// devuelve la instancia actual</span>
+    }
+
+    <span class="hljs-function">Punto <span class="hljs-title">setY</span><span class="hljs-params">(<span class="hljs-keyword">int</span> y)</span> </span>{
+        <span class="hljs-keyword">this</span>.y = y;
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">calculaDistanciaAOrigen</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> Math.sqrt(<span class="hljs-keyword">this</span>.x * <span class="hljs-keyword">this</span>.x + <span class="hljs-keyword">this</span>.y * <span class="hljs-keyword">this</span>.y);
+    }
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Main</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>{
+        Punto p = <span class="hljs-keyword">new</span> Punto().setX(<span class="hljs-number">3</span>).setY(<span class="hljs-number">4</span>);
+        System.out.println(p.calculaDistanciaAOrigen()); <span class="hljs-comment">// 5.0</span>
+    }
+}
+</div></code></pre>
+<h3 id="4-pasar-la-instancia-actual-como-argumento">4) <strong>Pasar la instancia actual como argumento</strong></h3>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Utilidades</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">double</span> <span class="hljs-title">distanciaEntre</span><span class="hljs-params">(Punto a, Punto b)</span> </span>{
+        <span class="hljs-keyword">int</span> dx = a.x - b.x;
+        <span class="hljs-keyword">int</span> dy = a.y - b.y;
+        <span class="hljs-keyword">return</span> Math.sqrt(dx * dx + dy * dy);
+    }
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Punto</span> </span>{
+    <span class="hljs-keyword">int</span> x;
+    <span class="hljs-keyword">int</span> y;
+
+    Punto(<span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y) { <span class="hljs-keyword">this</span>.x = x; <span class="hljs-keyword">this</span>.y = y; }
+
+    <span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">distanciaA</span><span class="hljs-params">(Punto otro)</span> </span>{
+        <span class="hljs-comment">// Pasamos la instancia actual como 'this'</span>
+        <span class="hljs-keyword">return</span> Utilidades.distanciaEntre(<span class="hljs-keyword">this</span>, otro);
+    }
+}
+</div></code></pre>
+<hr>
+<h2 id="resumen-r%C3%A1pido">Resumen rápido</h2>
+<ul>
+<li><code>this</code> → referencia a <strong>la instancia actual</strong>.</li>
+<li>Útil para: desambiguar atributos/parámetros, encadenar constructores, patrones de métodos encadenados, y pasar la propia instancia.</li>
+<li><strong>No</strong> se puede usar en métodos <code>static</code>.</li>
+<li>El nombre cambia en algunos lenguajes (p. ej., <code>self</code> en Python), pero la <strong>idea es la misma</strong>.</li>
+</ul>
+<hr>
+<hr>
+<h1 id="%E2%9C%94-13-clase-punto-con-el-nuevo-m%C3%A9todo-distanciaa">✔ 13. Clase <code>Punto</code> con el nuevo método <code>distanciaA</code></h1>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Punto</span> </span>{
+    <span class="hljs-keyword">int</span> x;  <span class="hljs-comment">// visibilidad por defecto</span>
+    <span class="hljs-keyword">int</span> y;  <span class="hljs-comment">// visibilidad por defecto</span>
+
+    Punto(<span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y) {
+        <span class="hljs-keyword">this</span>.x = x;
+        <span class="hljs-keyword">this</span>.y = y;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">calculaDistanciaAOrigen</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> Math.sqrt(<span class="hljs-keyword">this</span>.x * <span class="hljs-keyword">this</span>.x + <span class="hljs-keyword">this</span>.y * <span class="hljs-keyword">this</span>.y);
+    }
+
+    <span class="hljs-comment">// Nuevo método solicitado</span>
+    <span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">distanciaA</span><span class="hljs-params">(Punto otro)</span> </span>{
+        <span class="hljs-keyword">int</span> dx = <span class="hljs-keyword">this</span>.x - otro.x;
+        <span class="hljs-keyword">int</span> dy = <span class="hljs-keyword">this</span>.y - otro.y;
+        <span class="hljs-keyword">return</span> Math.sqrt(dx * dx + dy * dy);
+    }
+}
+</div></code></pre>
+<hr>
+<h1 id="%E2%9C%94-ejemplo-de-uso">✔ Ejemplo de uso</h1>
+<pre class="hljs"><code><div><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Main</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>{
+        Punto p1 = <span class="hljs-keyword">new</span> Punto(<span class="hljs-number">3</span>, <span class="hljs-number">4</span>);
+        Punto p2 = <span class="hljs-keyword">new</span> Punto(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>);
+
+        <span class="hljs-keyword">double</span> d = p1.distanciaA(p2);
+        System.out.println(<span class="hljs-string">"Distancia entre p1 y p2: "</span> + d);
+    }
+}
+</div></code></pre>
+<h3 id="resultado-esperado">Resultado esperado:</h3>
+<pre><code>Distancia entre p1 y p2: 5.0
+</code></pre>
+<hr>
+<h1 id="%E2%9C%94-explicaci%C3%B3n-breve">✔ Explicación breve</h1>
+<ul>
+<li><code>this.x</code> → coordenada del punto actual.</li>
+<li><code>otro.x</code> → coordenada del punto pasado como parámetro.</li>
+<li><code>dx</code> y <code>dy</code> son las diferencias en cada eje.</li>
+<li>La distancia euclidiana se calcula con:
+$$
+\sqrt{(x_1 - x_2)^2 + (y_1 - y_2)^2}
+$$</li>
+</ul>
+<hr>
+<hr>
+<h1 id="14-%C2%BFel-paso-de-par%C3%A1metros-en-java-es-por-copia-o-por-referencia">14. ¿El <strong>paso de parámetros</strong> en Java es <strong>por copia o por referencia</strong>?</h1>
+<h2 id="%E2%9C%94-en-java-todo-se-pasa-siempre-por-valor-por-copia">✔ <strong>En Java TODO se pasa SIEMPRE por valor (por copia).</strong></h2>
+<p>Pero cuidado:</p>
+<ul>
+<li>Cuando pasas un <strong>tipo primitivo</strong> → se copia el <strong>valor</strong>.</li>
+<li>Cuando pasas un <strong>objeto</strong> (como <code>Punto</code>) → se copia <strong>la referencia</strong> al objeto.</li>
+</ul>
+<p>Esto genera dos comportamientos distintos.</p>
+<hr>
+<h1 id="%E2%9C%94-caso-1-pasar-un-objeto-punto">✔ Caso 1: Pasar un objeto <code>Punto</code></h1>
+<p>El método recibe <strong>una copia de la referencia</strong>, pero AMBAS referencias apuntan al <strong>mismo objeto</strong> del <em>heap</em>.</p>
+<p>Por eso:</p>
+<p>➡️ <strong>Si modificas atributos del objeto dentro del método, los cambios afectan fuera.</strong></p>
+<p>Ejemplo:</p>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">mover</span><span class="hljs-params">(Punto p)</span> </span>{
+    p.x = <span class="hljs-number">100</span>;   <span class="hljs-comment">// modifica el objeto real</span>
+}
+</div></code></pre>
+<p>Uso:</p>
+<pre class="hljs"><code><div>Punto p1 = <span class="hljs-keyword">new</span> Punto(<span class="hljs-number">3</span>, <span class="hljs-number">4</span>);
+mover(p1);
+System.out.println(p1.x); <span class="hljs-comment">// 100 → CAMBIÓ</span>
+</div></code></pre>
+<h3 id="%E2%9C%94-%C2%BFpor-qu%C3%A9-ocurre">✔ ¿Por qué ocurre?</h3>
+<p>Porque tanto <code>p1</code> como el parámetro <code>p</code> apuntan al <strong>mismo objeto</strong> en memoria.</p>
+<p>Lo que se copia es <strong>la dirección</strong>, no el objeto.</p>
+<hr>
+<h1 id="%E2%9C%94-caso-2-pasar-un-entero-int">✔ Caso 2: Pasar un entero (<code>int</code>)</h1>
+<p>Los tipos primitivos en Java (<em>int, double, boolean, char…</em>) se pasan <strong>por copia del valor</strong>.</p>
+<p>Eso significa que si modificas el parámetro dentro del método, NO afecta fuera.</p>
+<p>Ejemplo:</p>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">cambiarEntero</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n)</span> </span>{
+    n = <span class="hljs-number">999</span>;  <span class="hljs-comment">// solo cambia la copia</span>
+}
+</div></code></pre>
+<p>Uso:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">int</span> a = <span class="hljs-number">5</span>;
+cambiarEntero(a);
+System.out.println(a); <span class="hljs-comment">// 5 → NO CAMBIÓ</span>
+</div></code></pre>
+<h3 id="%E2%9C%94-%C2%BFpor-qu%C3%A9">✔ ¿Por qué?</h3>
+<p>Porque <code>a</code> y <code>n</code> son <strong>copias independientes</strong> del valor 5.</p>
+<hr>
+<h1 id="%E2%9C%94-%C2%BFentonces-java-tiene-paso-por-referencia">✔ ¿Entonces Java tiene “paso por referencia”?</h1>
+<p>❌ <strong>No.</strong></p>
+<p>Java <strong>no</strong> tiene paso por referencia auténtico (como C++ cuando pasas con <code>&amp;</code>).</p>
+<p>Lo que tiene es:</p>
+<ul>
+<li><strong>Paso por valor de primitivos</strong>, y</li>
+<li><strong>Paso por valor de referencias a objetos</strong>.</li>
+</ul>
+<p>Ese matiz es MUY importante.</p>
+<hr>
+<h1 id="%F0%9F%9F%A6-resumen-final">🟦 Resumen final</h1>
+<table>
+<thead>
+<tr>
+<th>Tipo pasado a un método</th>
+<th>¿Qué se copia?</th>
+<th>¿Afectan las modificaciones fuera del método?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Objeto (Punto)</strong></td>
+<td>Se <strong>copia la referencia</strong>, no el objeto</td>
+<td>✔ Sí, los cambios afectan al objeto real</td>
+</tr>
+<tr>
+<td><strong>Primitivo (int)</strong></td>
+<td>Se copia <strong>el valor</strong></td>
+<td>❌ No afectan fuera del método</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<hr>
+<h1 id="15-%C2%BFqu%C3%A9-es-el-m%C3%A9todo-tostring-en-java">15. ¿Qué es el método <code>toString()</code> en Java?</h1>
+<p>En Java, <strong><code>toString()</code></strong> es un método que tienen <strong>todas las clases</strong>, porque está definido en la clase base <strong><code>java.lang.Object</code></strong>, de la cual <strong>heredan todas las clases</strong>.</p>
+<h2 id="%E2%9C%94-%C2%BFpara-qu%C3%A9-sirve">✔ ¿Para qué sirve?</h2>
+<p><code>toString()</code> devuelve una <strong>representación en forma de texto</strong> del objeto.</p>
+<p>Su objetivo es:</p>
+<ul>
+<li>Mostrar la información del objeto de forma legible</li>
+<li>Facilitar depuración, logs y mensajes por consola</li>
+<li>Convertir un objeto a cadena automáticamente cuando se usa con <code>System.out.println()</code> o concatenaciones</li>
+</ul>
+<p>Ejemplo:</p>
+<pre class="hljs"><code><div>System.out.println(miPunto);
+</div></code></pre>
+<p>Java internamente hace:</p>
+<pre class="hljs"><code><div>miPunto.toString();
+</div></code></pre>
+<hr>
+<h1 id="%E2%9C%94-%C2%BFexiste-en-otros-lenguajes">✔ ¿Existe en otros lenguajes?</h1>
+<p>Sí, pero con <em>nombres distintos</em>:</p>
+<ul>
+<li><strong>JavaScript</strong> → <code>toString()</code> también</li>
+<li><strong>C#</strong> → <code>ToString()</code> con mayúscula</li>
+<li><strong>Python</strong> → usa <code>__str__()</code> para la cadena legible y <code>__repr__()</code> para representación oficial</li>
+<li><strong>C++</strong> → no existe un “toString universal”; se suele sobrecargar <code>operator&lt;&lt;</code> o crear un método propio</li>
+</ul>
+<p>Es un concepto muy común: “obtener una cadena que describa al objeto”.</p>
+<hr>
+<h1 id="%E2%9C%94-ejemplo-de-tostring-en-la-clase-punto">✔ Ejemplo de <code>toString()</code> en la clase <code>Punto</code></h1>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Punto</span> </span>{
+    <span class="hljs-keyword">int</span> x;  <span class="hljs-comment">// visibilidad por defecto</span>
+    <span class="hljs-keyword">int</span> y;  <span class="hljs-comment">// visibilidad por defecto</span>
+
+    Punto(<span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y) {
+        <span class="hljs-keyword">this</span>.x = x;
+        <span class="hljs-keyword">this</span>.y = y;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">calculaDistanciaAOrigen</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> Math.sqrt(<span class="hljs-keyword">this</span>.x * <span class="hljs-keyword">this</span>.x + <span class="hljs-keyword">this</span>.y * <span class="hljs-keyword">this</span>.y);
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">distanciaA</span><span class="hljs-params">(Punto otro)</span> </span>{
+        <span class="hljs-keyword">int</span> dx = <span class="hljs-keyword">this</span>.x - otro.x;
+        <span class="hljs-keyword">int</span> dy = <span class="hljs-keyword">this</span>.y - otro.y;
+        <span class="hljs-keyword">return</span> Math.sqrt(dx * dx + dy * dy);
+    }
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">toString</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-string">"Punto("</span> + x + <span class="hljs-string">", "</span> + y + <span class="hljs-string">")"</span>;
+    }
+}
+</div></code></pre>
+<hr>
+<h1 id="%E2%9C%94-ejemplo-de-uso">✔ Ejemplo de uso</h1>
+<pre class="hljs"><code><div><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Main</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>{
+        Punto p = <span class="hljs-keyword">new</span> Punto(<span class="hljs-number">3</span>, <span class="hljs-number">4</span>);
+        System.out.println(p);          <span class="hljs-comment">// Llama automáticamente a p.toString()</span>
+        System.out.println(p.toString()); <span class="hljs-comment">// Equivalente</span>
+    }
+}
+</div></code></pre>
+<p>Salida:</p>
+<pre><code>Punto(3, 4)
+Punto(3, 4)
+</code></pre>
+<hr>
+<h1 id="%F0%9F%9F%A6-resumen-r%C3%A1pido">🟦 Resumen rápido</h1>
+<table>
+<thead>
+<tr>
+<th>Concepto</th>
+<th>Explicación</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>toString()</code></td>
+<td>Representación textual legible del objeto</td>
+</tr>
+<tr>
+<td>Dónde se define</td>
+<td>En <code>Object</code>, la superclase de todas</td>
+</tr>
+<tr>
+<td>Cuándo se llama</td>
+<td>En <code>System.out.println(objeto)</code> o al concatenar cadenas</td>
+</tr>
+<tr>
+<td>¿Existe en otros lenguajes?</td>
+<td>Sí, pero con nombres distintos (<code>__str__</code>, <code>ToString</code>, etc.)</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<hr>
+<h1 id="16-%C2%BFuna-clase-es-como-un-struct-en-c">16. ¿Una clase es como un <code>struct</code> en C?</h1>
+<h2 id="%E2%9C%94-respuesta-corta">✔ <strong>Respuesta corta:</strong></h2>
+<p><strong>NO</strong>, un <code>struct</code> en C <em>no es</em> una clase…<br>
+Pero <strong>sí se parece a la parte de “atributos” de una clase</strong>.</p>
+<p>Un <code>struct</code> en C es simplemente un <strong>contenedor de datos</strong>.<br>
+No tiene <strong>métodos</strong>, ni <strong>constructores</strong>, ni <strong>encapsulamiento</strong>, ni <strong>herencia</strong>, ni <strong>polimorfismo</strong>, ni nada que forme parte de la Programación Orientada a Objetos.</p>
+<p>Ejemplo de <code>struct</code> en C:</p>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Punto</span> {</span>
+    <span class="hljs-keyword">int</span> x;
+    <span class="hljs-keyword">int</span> y;
+};
+</div></code></pre>
+<p>Esto solo define dos campos. No puede tener comportamiento asociado.</p>
+<hr>
+<h1 id="%E2%9C%94-%C2%BFqu%C3%A9-le-falta-al-struct-para-ser-como-una-clase">✔ ¿Qué le falta al <code>struct</code> para ser como una clase?</h1>
+<p>Para que un <code>struct</code> en C fuese equivalente a una <strong>clase</strong> en Java, le faltarían <strong>varias características esenciales</strong>:</p>
+<hr>
+<h2 id="%E2%9C%94-1-m%C3%A9todos-dentro-del-propio-tipo">✔ 1. <strong>Métodos dentro del propio tipo</strong></h2>
+<p>Una clase tiene métodos:</p>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Punto</span> </span>{
+    <span class="hljs-keyword">int</span> x, y;
+
+    <span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">distanciaAOrigen</span><span class="hljs-params">()</span> </span>{ ... }
+}
+</div></code></pre>
+<p>Un <code>struct</code> en C <strong>no puede</strong> tener funciones dentro.<br>
+Solo se puede simular haciendo funciones externas que reciban un puntero al struct.</p>
+<hr>
+<h2 id="%E2%9C%94-2-constructores">✔ 2. <strong>Constructores</strong></h2>
+<p>Las clases permiten inicializar automáticamente el objeto:</p>
+<pre class="hljs"><code><div>Punto p = <span class="hljs-keyword">new</span> Punto(<span class="hljs-number">3</span>, <span class="hljs-number">4</span>);
+</div></code></pre>
+<p>En C no hay constructores. Hay que asignar “a mano”:</p>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Punto</span> <span class="hljs-title">p</span> = {</span><span class="hljs-number">3</span>, <span class="hljs-number">4</span>};
+</div></code></pre>
+<hr>
+<h2 id="%E2%9C%94-3-encapsulamiento">✔ 3. <strong>Encapsulamiento</strong></h2>
+<p>En Java puedes controlar el acceso:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> x;
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getX</span><span class="hljs-params">()</span> </span>{ <span class="hljs-keyword">return</span> x; }
+</div></code></pre>
+<p>En C, un <code>struct</code> <strong>no puede tener visibilidad privada</strong>.<br>
+Todo es público.</p>
+<hr>
+<h2 id="%E2%9C%94-4-herencia">✔ 4. <strong>Herencia</strong></h2>
+<p>Una clase puede extender a otra:</p>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Empleado</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Persona</span> </span>{ }
+</div></code></pre>
+<p>En C, los <code>struct</code> <strong>no pueden heredar</strong> (solo puedes “simular” algo parecido copiando campos, pero no es herencia real).</p>
+<hr>
+<h2 id="%E2%9C%94-5-polimorfismo">✔ 5. <strong>Polimorfismo</strong></h2>
+<p>En Java puedes sobrescribir métodos y usar referencias polimórficas:</p>
+<pre class="hljs"><code><div>Persona p = <span class="hljs-keyword">new</span> Empleado();
+p.saludar(); <span class="hljs-comment">// polimorfismo</span>
+</div></code></pre>
+<p>En C, imposible con un struct (salvo con técnicas manuales complejas como “tablas de función”, pero no forman parte del lenguaje).</p>
+<hr>
+<h2 id="%E2%9C%94-6-this--referencia-impl%C3%ADcita-al-objeto">✔ 6. <strong><code>this</code> / referencia implícita al objeto</strong></h2>
+<p>En una clase, los métodos tienen una referencia automática al objeto (<code>this</code>).</p>
+<p>En C, las funciones no saben a qué struct pertenecen.</p>
+<hr>
+<h2 id="%E2%9C%94-7-instancias-reales">✔ 7. <strong>Instancias reales</strong></h2>
+<p>En Java:</p>
+<pre class="hljs"><code><div>Punto p = <span class="hljs-keyword">new</span> Punto();
+</div></code></pre>
+<p><code>p</code> es una instancia.</p>
+<p>En C:</p>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Punto</span> <span class="hljs-title">p</span>;</span>
+</div></code></pre>
+<p>Esto <strong>no es una instancia orientada a objetos</strong>, es solo una región de memoria con datos.</p>
+<hr>
+<h1 id="%F0%9F%9F%A6-resumen-final">🟦 Resumen final</h1>
+<table>
+<thead>
+<tr>
+<th>Característica</th>
+<th>Struct en C</th>
+<th>Clase en Java</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Atributos</td>
+<td>✔ Sí</td>
+<td>✔ Sí</td>
+</tr>
+<tr>
+<td>Métodos</td>
+<td>❌ No</td>
+<td>✔ Sí</td>
+</tr>
+<tr>
+<td>Constructores</td>
+<td>❌ No</td>
+<td>✔ Sí</td>
+</tr>
+<tr>
+<td>Encapsulamiento</td>
+<td>❌ No</td>
+<td>✔ Sí</td>
+</tr>
+<tr>
+<td>Herencia</td>
+<td>❌ No</td>
+<td>✔ Sí</td>
+</tr>
+<tr>
+<td>Polimorfismo</td>
+<td>❌ No</td>
+<td>✔ Sí</td>
+</tr>
+<tr>
+<td><code>this</code></td>
+<td>❌ No</td>
+<td>✔ Sí</td>
+</tr>
+<tr>
+<td>Instancias</td>
+<td>⚠ Solo datos</td>
+<td>✔ Objetos reales</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="%E2%9C%94-conclusi%C3%B3n-clara">✔ Conclusión clara</h2>
+<p>Un <code>struct</code> en C es equivalente <strong>solo a la parte de datos</strong> de una clase.<br>
+Para convertirse en una “clase real”, necesitaría:</p>
+<p>👉 <strong>métodos</strong>,<br>
+👉 <strong>constructores</strong>,<br>
+👉 <strong>encapsulamiento</strong>,<br>
+👉 <strong>herencia</strong>,<br>
+👉 <strong>polimorfismo</strong>,<br>
+👉 <strong>comportamiento asociado</strong>,<br>
+👉 <strong>y una referencia implícita al objeto (<code>this</code>)</strong>.</p>
+<p>Es decir, le falta casi <em>todo</em> lo que define la POO.</p>
+<hr>
+<hr>
+<h1 id="17-%C2%BFc%C3%B3mo-emular-una-clase-punto-de-java-usando-struct-en-c">17. ¿Cómo emular una clase <code>Punto</code> de Java usando <code>struct</code> en C?</h1>
+<p>En C <strong>no existen clases</strong>, <strong>ni métodos</strong>, <strong>ni this</strong>, <strong>ni constructores</strong>.<br>
+Pero podemos <strong>simular</strong> la idea con:</p>
+<ul>
+<li>Un <code>struct</code> → para almacenar los datos</li>
+<li>Una función externa → para operar sobre estos datos</li>
+<li>Pasar un puntero al struct → para que la función sepa <em>qué objeto</em> estamos usando<br>
+(esto es lo que sustituye a <code>this</code>)</li>
+</ul>
+<hr>
+<h1 id="%E2%9C%94-versi%C3%B3n-en-c-que-imita-la-clase-punto">✔ Versión en C que imita la clase <code>Punto</code></h1>
+<h2 id="1-definici%C3%B3n-del-objeto-usando-struct">1) Definición del “objeto” usando <code>struct</code>:</h2>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Punto</span> {</span>
+    <span class="hljs-keyword">int</span> x;
+    <span class="hljs-keyword">int</span> y;
+};
+</div></code></pre>
+<p>Esto solo contiene <em>datos</em>. No puede contener funciones.</p>
+<hr>
+<h2 id="2-constructor-simulado-una-funci%C3%B3n-que-inicializa-el-struct">2) “Constructor” simulado: una función que inicializa el struct</h2>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Punto_init</span><span class="hljs-params">(struct Punto* p, <span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y)</span> </span>{
+    p-&gt;x = x;
+    p-&gt;y = y;
+}
+</div></code></pre>
+<p>📌 En Java escribirías:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">this</span>.x = x;
+</div></code></pre>
+<p>Pero en C:</p>
+<pre class="hljs"><code><div>p-&gt;x = x;
+</div></code></pre>
+<p>porque <code>p</code> es un puntero al struct.</p>
+<hr>
+<h2 id="3-funci%C3%B3n-que-imita-a-calculadistanciaaorigen">3) Función que imita a <code>calculaDistanciaAOrigen()</code></h2>
+<pre class="hljs"><code><div><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;math.h&gt;</span></span>
+
+<span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">Punto_calculaDistanciaAOrigen</span><span class="hljs-params">(struct Punto* p)</span> </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">sqrt</span>(p-&gt;x * p-&gt;x + p-&gt;y * p-&gt;y);
+}
+</div></code></pre>
+<p>Esta función sería un <strong>método</strong> en Java, pero en C está <em>fuera</em> del struct.</p>
+<hr>
+<h2 id="4-ejemplo-de-uso">4) Ejemplo de uso</h2>
+<pre class="hljs"><code><div><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;math.h&gt;</span></span>
+
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Punto</span> {</span>
+    <span class="hljs-keyword">int</span> x;
+    <span class="hljs-keyword">int</span> y;
+};
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Punto_init</span><span class="hljs-params">(struct Punto* p, <span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y)</span> </span>{
+    p-&gt;x = x;
+    p-&gt;y = y;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">Punto_calculaDistanciaAOrigen</span><span class="hljs-params">(struct Punto* p)</span> </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">sqrt</span>(p-&gt;x * p-&gt;x + p-&gt;y * p-&gt;y);
+}
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Punto</span> <span class="hljs-title">p</span>;</span>
+    Punto_init(&amp;p, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>);
+
+    <span class="hljs-keyword">double</span> d = Punto_calculaDistanciaAOrigen(&amp;p);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Distancia al origen: %.2f\n"</span>, d);
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}
+</div></code></pre>
+<p>Salida:</p>
+<pre><code>Distancia al origen: 5.00
+</code></pre>
+<hr>
+<h1 id="%E2%9C%94-%C2%BFqu%C3%A9-ha-pasado-con-this">✔ ¿Qué ha pasado con <code>this</code>?</h1>
+<h3 id="en-java">En Java:</h3>
+<ul>
+<li><code>this</code> es una <strong>referencia implícita</strong> al objeto actual.</li>
+<li>No tienes que pasarla como parámetro: está <em>automáticamente disponible</em>.</li>
+</ul>
+<p>Ejemplo en Java:</p>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">calculaDistanciaAOrigen</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-keyword">return</span> Math.sqrt(<span class="hljs-keyword">this</span>.x * <span class="hljs-keyword">this</span>.x + <span class="hljs-keyword">this</span>.y * <span class="hljs-keyword">this</span>.y);
+}
+</div></code></pre>
+<h3 id="en-c">En C:</h3>
+<ul>
+<li>No existe <code>this</code>.</li>
+<li>Si quieres saber <em>a qué struct</em> te refieres, <strong>tienes que pasarlo como parámetro</strong>.</li>
+</ul>
+<p>Ejemplo equivalente en C:</p>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">Punto_calculaDistanciaAOrigen</span><span class="hljs-params">(struct Punto* p)</span> </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">sqrt</span>(p-&gt;x * p-&gt;x + p-&gt;y * p-&gt;y);
+}
+</div></code></pre>
+<p>Aquí, <strong><code>p</code> es el <code>this</code> manual</strong>.</p>
+<hr>
+<h1 id="%E2%9C%94-resumen-claro">✔ Resumen claro</h1>
+<table>
+<thead>
+<tr>
+<th>Concepto</th>
+<th>Java (POO)</th>
+<th>C (struct + funciones)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Datos</td>
+<td>atributos dentro de la clase</td>
+<td>campos del struct</td>
+</tr>
+<tr>
+<td>Métodos</td>
+<td>dentro de la clase</td>
+<td>funciones externas</td>
+</tr>
+<tr>
+<td>this</td>
+<td>implícito</td>
+<td>hay que pasarlo como puntero</td>
+</tr>
+<tr>
+<td>Constructor</td>
+<td>método especial</td>
+<td>función normal (<code>Punto_init</code>)</td>
+</tr>
+<tr>
+<td>Invocación</td>
+<td><code>p.calculo()</code></td>
+<td><code>Punto_calculo(&amp;p)</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="conclusi%C3%B3n">Conclusión:</h3>
+<p>👉 En C <strong>tú mismo gestionas</strong> lo que Java hace automáticamente:</p>
+<ul>
+<li>pasar <code>this</code></li>
+<li>inicializar el objeto</li>
+<li>separar datos y funciones</li>
+<li>gestionar visibilidad</li>
+<li>evitar errores de punteros</li>
+</ul>
+<p>👉 Java aporta <strong>abstracción, encapsulamiento, y organización</strong>, mientras que C te da control total pero a mano.</p>
+<hr>
+<hr>
+
+</body>
+</html>
