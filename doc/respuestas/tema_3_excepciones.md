@@ -1782,6 +1782,5 @@ Eso muestra **la causa real del error**, tal como pide la pregunta.
     ```java
     throw new MiExcepcion("mensaje", causa);
     ```
-
 ***
 ***
