@@ -787,20 +787,350 @@ Si `raiz(-5)` lanza `NumeroNegativoException`:
 ***
 ***
 
-## 9. Si las excepciones producen rupturas en el código llamador, ¿cómo podemos garantizar que se ejecuta siempre finalmente un código necesario para cierre de ficheros, liberacion de recursos, antes de que continúe propagándose la excepción? Pon un ejemplo en Java con `finally`, tanto con `catch` como sin él.
+# 9. ✅ ¿Cómo garantizamos que un código se ejecute aunque haya excepciones?
 
-### Respuesta
+En Java, para garantizar que un bloque de código se ejecute **siempre**, ocurra o no una excepción, se utiliza el bloque **`finally`**.
 
+El bloque `finally` **siempre se ejecuta**:
 
-## 10. En Java, el bloque `finally` puede ir sin `catch`? ¿Se ejecuta siempre tanto si ocurre como si no ocurre una excepción? ¿Y si hay un `return` en medio del `try`?
+*   haya o no haya excepción,
+*   la excepción se capture o no,
+*   incluso si el método hace `return` dentro del `try` o `catch`.
 
-### Respuesta
+Su principal uso:  
+👉 **cerrar ficheros, liberar memoria, desconectar recursos externos, cerrar sockets, etc.**
 
+***
 
-## 11. En Java, qué son las excepciones **"controladas"** y las **"no controladas"**? ¿Qué papel juega `RuntimeException`? Pon un ejemplo de excepciones típicas controladas y no controladas que incluso nosotros mismos podríamos usar. Haz dos listas con 3 o 4 ejemplos de situación donde se suele preferir una excepción controlada y donde se suele preferir una excepción no controlada.
+## **🧩 Ejemplo 1 — `try + catch + finally`**
 
-### Respuesta
+Este ejemplo captura la excepción, pero **siempre** ejecuta el `finally` para liberar recursos:
 
+```java
+public class EjemploFinally {
+
+    public static void main(String[] args) {
+
+        try {
+            double r = Calculadora.raiz(-9);   // lanza excepción
+            System.out.println("Resultado: " + r);
+
+        } catch (IllegalArgumentException e) {
+            System.out.println("Error: " + e.getMessage());
+
+        } finally {
+            System.out.println("Cerrando recursos (fichero, conexión...)");
+        }
+
+        System.out.println("Programa continúa.");
+    }
+}
+```
+
+### ✔️ Flujo
+
+1.  `raiz(-9)` lanza la excepción.
+2.  Entra en el `catch`.
+3.  Pase lo que pase → **se ejecuta el `finally`**.
+4.  El programa continúa.
+
+***
+
+## **🧩 Ejemplo 2 — `try + finally` (sin `catch`)**
+
+El caso más útil: cuando quieres que la excepción siga propagándose **pero aun así** necesitas liberar recursos.
+
+```java
+public class EjemploFinallySinCatch {
+
+    public static void main(String[] args) {
+
+        try {
+            double r = Calculadora.raiz(-9);   // lanza excepción
+            System.out.println("Resultado: " + r);
+
+        } finally {
+            System.out.println("Liberando recursos aunque haya error");
+        }
+
+        System.out.println("Esto NO se ejecuta"); // nunca se llega aquí
+    }
+}
+```
+
+### ✔️ Flujo
+
+1.  `raiz(-9)` lanza excepción.
+2.  No hay `catch`, así que **la excepción se propaga**.
+3.  **Pero el `finally` se ejecuta SIEMPRE** antes de que la excepción salga.
+4.  El método termina abruptamente y no ejecuta nada después del `try`.
+
+***
+
+# 📌 Resumen para examen
+
+*   El bloque **`finally`** se ejecuta **siempre**, haya o no excepción.
+*   Garantiza liberar recursos incluso si la excepción se propaga.
+*   Puede usarse con `catch` o sin él.
+*   Sin `catch`, la excepción continúa propagándose después del `finally`.
+
+***
+***
+
+# ✅ 10.1. ¿Puede haber un bloque `finally` sin `catch`?
+
+**Sí.**  
+En Java, un bloque `try` puede ir seguido de:
+
+*   `try + catch`
+*   `try + catch + finally`
+*   `try + finally`  ← **válido**
+
+Ejemplo válido:
+
+```java
+try {
+    // código
+} finally {
+    // se ejecuta siempre
+}
+```
+
+***
+
+# ✅ 10.2. ¿Se ejecuta siempre el bloque `finally`?
+
+**Sí, el bloque `finally` se ejecuta siempre**, tanto:
+
+*   si ocurre una excepción
+*   como si NO ocurre
+*   tanto si se captura (`catch`)
+*   como si se deja propagar
+
+El único objetivo del `finally` es garantizar que **cierto código se ejecute pase lo que pase**, normalmente para:
+
+*   cierre de archivos
+*   liberación de recursos
+*   desconexión de bases de datos
+*   desbloqueos, etc.
+
+***
+
+# ✅ 10.3. ¿Y si hay un `return` dentro del `try`?
+
+**Incluso si hay un `return`, el bloque `finally` SIEMPRE se ejecuta antes de que el método termine.**
+
+Ejemplo:
+
+```java
+public static int ejemplo() {
+    try {
+        return 10; 
+    } finally {
+        System.out.println("Se ejecuta aunque haya return");
+    }
+}
+```
+
+Salida:
+
+    Se ejecuta aunque haya return
+
+El método devuelve 10 *después* de ejecutar el `finally`.
+
+***
+
+# 🧩 Ejemplos completos
+
+## ✔️ Ejemplo con `try + catch + finally`
+
+```java
+try {
+    double r = Calculadora.raiz(-5);   // lanza excepción
+    return;                            // ni siquiera llegará aquí
+} catch (IllegalArgumentException e) {
+    System.out.println("Error capturado: " + e.getMessage());
+} finally {
+    System.out.println("Liberando recursos...");
+}
+```
+
+Salida:
+
+    Error capturado: El número no puede ser negativo.
+    Liberando recursos...
+
+***
+
+## ✔️ Ejemplo con `try + finally` sin `catch`
+
+```java
+try {
+    double r = Calculadora.raiz(-5);  // lanza excepción
+} finally {
+    System.out.println("Esto se ejecuta SIEMPRE");
+}
+
+// este código NO se ejecuta, la excepción se propaga
+System.out.println("Nunca se llega aquí");
+```
+
+Salida:
+
+    Esto se ejecuta SIEMPRE
+    Exception in thread "main" ...
+
+***
+
+# 📌 Resumen breve para examen
+
+*   ✔️ Sí, el `finally` puede usarse **sin `catch`**.
+*   ✔️ El `finally` **siempre se ejecuta**, haya o no excepción.
+*   ✔️ Incluso si hay un **`return` dentro del `try`**, el `finally` se ejecuta antes de salir del método.
+*   ✔️ Si no hay `catch`, la excepción **se sigue propagando**, pero *después* de ejecutar el `finally`.
+
+***
+***
+
+# ✅ 11.1. ¿Qué son las excepciones *controladas* (checked exceptions)?
+
+Son **excepciones que el compilador obliga a manejar**.
+
+Un método que pueda lanzarlas debe:
+
+*   declararlo con `throws`, **o**
+*   capturarlas con un bloque `try-catch`.
+
+Estas excepciones **heredan de `Exception`**, pero **NO** de `RuntimeException`.
+
+📌 Se usan cuando el error es *esperable*, *previsible* y *recuperable*.
+
+Ejemplos típicos (todas checked):
+
+*   `IOException`
+*   `SQLException`
+*   `FileNotFoundException`
+*   `ClassNotFoundException`
+
+***
+
+# ✅ 11.2. ¿Qué son las excepciones *no controladas* (unchecked exceptions)?
+
+Son excepciones que **NO** es obligatorio declarar ni capturar.
+
+Heradan de **`RuntimeException`**.
+
+Se lanzan normalmente por errores lógicos del programador: índices fuera de rango, accesos nulos, division entre cero…
+
+📌 Se usan cuando el error es *inesperado*, *difícil de recuperar* o provocado por un *fallo de programación*.
+
+Ejemplos típicos (todas unchecked):
+
+*   `NullPointerException`
+*   `ArithmeticException`
+*   `IndexOutOfBoundsException`
+*   `IllegalArgumentException`
+
+***
+
+# ✅ 11.3. ¿Qué papel juega `RuntimeException`?
+
+`RuntimeException` es la **clase base** de todas las excepciones no controladas.
+
+Toda excepción que herede de `RuntimeException`:
+
+*   **no** es obligatorio declararla con `throws`,
+*   **no** es obligatorio atraparla con `catch`,
+*   normalmente indica **fallos de programación**, no errores externos.
+
+Ejemplo simplificado:
+
+```java
+public class MiErrorRuntime extends RuntimeException {
+    public MiErrorRuntime(String msg) {
+        super(msg);
+    }
+}
+```
+
+***
+
+## **🧩 Ejemplos de excepciones personalizadas (creadas por nosotros)**
+
+### ✔️ Personalizada *controlada* (checked)
+
+```java
+public class NumeroNegativoException extends Exception {
+    public NumeroNegativoException(String msg) {
+        super(msg);
+    }
+}
+```
+
+### ✔️ Personalizada *no controlada* (unchecked)
+
+```java
+public class DatoInvalidoRuntimeException extends RuntimeException {
+    public DatoInvalidoRuntimeException(String msg) {
+        super(msg);
+    }
+}
+```
+
+***
+
+# 🧾 LISTAS PEDIDAS
+
+## ✔️ Situaciones donde se prefiere una **excepción controlada** (checked exception)
+
+Estas situaciones ocurren por causas **externas** al programa, y el programador puede intentar recuperarse.
+
+1.  **Errores de entrada/salida (IO)**  
+    Ej.: no se puede leer un archivo (`IOException`).
+
+2.  **Errores de acceso a bases de datos**  
+    Ej.: conexión fallida (`SQLException`).
+
+3.  **Recursos externos no disponibles**  
+    Ej.: un servidor no responde, un fichero no se encuentra.
+
+4.  **Operaciones que el usuario podría corregir**  
+    Ej.: pedir otro archivo, reintentar conexión, etc.
+
+***
+
+## ✔️ Situaciones donde se prefiere una **excepción no controlada** (unchecked exception)
+
+Son errores **de programación** o **violaciones de precondiciones**.
+
+1.  **Argumentos inválidos pasados por el programador**  
+    Ej.: `IllegalArgumentException`.
+
+2.  **Acceso a un índice fuera de rango**  
+    Ej.: `IndexOutOfBoundsException`.
+
+3.  **Usar un objeto nulo**  
+    Ej.: `NullPointerException`.
+
+4.  **Errores de programación irrecuperables**  
+    Ej.: lógica incorrecta, estructuras mal construidas, invariantes rotas.
+
+***
+
+# 📌 Resumen perfecto para examen
+
+*   **Checked (controladas)** → el compilador obliga a manejarlas; heredan de `Exception` (menos `RuntimeException`).  
+    Son errores externos y recuperables.
+
+*   **Unchecked (no controladas)** → no hace falta declararlas ni capturarlas; heredan de `RuntimeException`.  
+    Son errores lógicos del programador y suelen ser irrecuperables.
+
+*   `RuntimeException` → base de todas las excepciones no controladas.
+
+*   Podemos crear nuestras propias excepciones tanto checked como unchecked.
+
+***
+***
 
 ## 12. ¿Qué es y para qué se usa `throws`? ¿Por qué es alternativa a capturar una excepción controlada?
 
